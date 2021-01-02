@@ -7,20 +7,23 @@ namespace EventStore.Core.DddSeedwork
     {
         public int Version { private set; get; }
 
-        private List<IDomainEvent> _domainEvents => new List<IDomainEvent>();
+        private readonly List<IDomainEvent> _domainEvents;
 
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
-        
+
         /// <summary>
         /// CTor (default)
         /// </summary>
-        protected EventSourcedAggregateRoot() { }
+        protected EventSourcedAggregateRoot()
+        {
+            _domainEvents = new List<IDomainEvent>();
+        }
 
         /// <summary>
         /// CTor (when loading aggregate from db)
         /// </summary>
         /// <param name="events"></param>
-        protected EventSourcedAggregateRoot(IEnumerable<IDomainEvent> events)
+        protected EventSourcedAggregateRoot(IEnumerable<IDomainEvent> events): this()
         {
             if (events == null) return;
 
@@ -31,7 +34,10 @@ namespace EventStore.Core.DddSeedwork
             }
         }
 
-        protected void AddDomainEvent(IDomainEvent evt) => _domainEvents.Add(evt);
+        protected void AddDomainEvent(IDomainEvent evt)
+        {
+            _domainEvents.Add(evt);
+        }
 
         protected void RemoveDomainEvent(IDomainEvent evt) => _domainEvents.Remove(evt);
 

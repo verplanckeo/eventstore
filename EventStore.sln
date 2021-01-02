@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Infrastructure.P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Infrastructure", "EventStore.Infrastructure\EventStore.Infrastructure.csproj", "{F92060A2-8F3D-44AE-809F-B3EDA6855453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Services", "EventStore.Services\EventStore.Services.csproj", "{B0D2CDD0-71D6-451B-B9A5-428FEB8ED3DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Services", "EventStore.Services\EventStore.Services.csproj", "{B0D2CDD0-71D6-451B-B9A5-428FEB8ED3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Application", "EventStore.Application\EventStore.Application.csproj", "{1DF56084-3370-4DFB-AEA3-8C69A8314E26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Application", "EventStore.Application\EventStore.Application.csproj", "{1DF56084-3370-4DFB-AEA3-8C69A8314E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

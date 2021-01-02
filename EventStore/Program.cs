@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using EventStore.Infrastructure.Persistence.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +30,7 @@ namespace EventStore
                 .ConfigureAppConfiguration((context, builder) =>
                 {
                     builder.SetBasePath(Directory.GetCurrentDirectory());
+                    builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                     builder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true);
                     builder.AddEnvironmentVariables();
                     builder.AddCommandLine(args);
@@ -37,6 +39,7 @@ namespace EventStore
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<HostedService>();
+                    services.AddDbContext<RealDbContext>();
                 })
                 .ConfigureLogging((context, builder) =>
                 {

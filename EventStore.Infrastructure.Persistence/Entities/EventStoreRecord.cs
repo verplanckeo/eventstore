@@ -45,5 +45,28 @@ namespace EventStore.Infrastructure.Persistence.Entities
         /// Identifier of AggregateRoot
         /// </summary>
         public string AggregateRootId { get; set; }
+
+        public EventStoreRecord()
+        {
+            //Default CTor for EF
+        }
+
+        private EventStoreRecord(Guid recordId, string serializedData, int version, DateTimeOffset createdAt,
+            string domainEventName, string aggregateName, string aggregateRootId)
+        {
+            Id = recordId;
+            Data = serializedData;
+            Version = version;
+            CreatedAt = createdAt;
+            DomainEventName = domainEventName;
+            AggregateName = aggregateName;
+            AggregateRootId = aggregateRootId;
+        }
+
+        public static EventStoreRecord CreateRecord(Guid recordId, string serializedData, int version, DateTimeOffset createdAt,
+            string domainEventName, string aggregateName, string aggregateRootId)
+        {
+            return new EventStoreRecord(recordId, serializedData, version, createdAt, domainEventName, aggregateName, aggregateRootId);
+        }
     }
 }

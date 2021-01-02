@@ -13,6 +13,11 @@ namespace EventStore.Infrastructure.Persistence.Entities
         /// <param name="token">Cancellation token in case process is interrupted.</param>
         /// <returns></returns>
         Task<int> SaveChangesAsync(CancellationToken token = default);
+        
+        /// <summary>
+        /// Domain events stored in event store db
+        /// </summary>
+        DbSet<EventStoreRecord> EventStoreRecords { get; set; }
 
         /// <summary>
         /// Get overview of users based on it's read model

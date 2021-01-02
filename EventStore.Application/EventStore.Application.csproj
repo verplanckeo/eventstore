@@ -5,7 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EventStore.Core\EventStore.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\User\LoadSingleUser\" />
+    <Folder Include="Features\User\LoadAllUsers\" />
   </ItemGroup>
 
 </Project>
