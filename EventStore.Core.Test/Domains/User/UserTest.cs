@@ -22,7 +22,6 @@ namespace EventStore.Core.Test.Domains.User
             // Act
             var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke");
 
-
             // Assert
             Assert.AreEqual("overplan", user.UserName);
             Assert.AreEqual("olivier", user.FirstName);
