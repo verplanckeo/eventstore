@@ -6,7 +6,7 @@ using EventStore.Application.Repositories.User;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EventStore.Application.Test.Features.Register
+namespace EventStore.Application.Test.Features.User.Register
 {
     [TestClass]
     public class RegisterUserMediatorCommandHandlerTest

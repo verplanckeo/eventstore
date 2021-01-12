@@ -1,13 +1,11 @@
 ﻿using System.Threading.Tasks;
 using EventStore.Application.Features.User;
-using EventStore.Application.Features.User.Register;
 using EventStore.Application.Features.User.UpdateReadUser;
-using EventStore.Application.Mediator;
 using EventStore.Application.Repositories.User;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EventStore.Application.Test.Features.UpdateReadUser
+namespace EventStore.Application.Test.Features.User.UpdateReadUser
 {
     [TestClass]
     public class UpdateReadUserCommandHandlerTest
