@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EventStore.Application.Repositories;
 using EventStore.Core.DddSeedwork;
 using EventStore.Infrastructure.Persistence.Entities;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace EventStore.Infrastructure.Persistence.Repositories
@@ -40,11 +41,25 @@ namespace EventStore.Infrastructure.Persistence.Repositories
             ));
 
             await _dbContext.EventStoreRecords.AddRangeAsync(records, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task<IReadOnlyCollection<IDomainEvent>> LoadAsync(IEntityId aggregateRootId, CancellationToken cancellationToken)
+        public async Task<IReadOnlyCollection<IDomainEvent>> LoadAsync(IEntityId aggregateRootId, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if(aggregateRootId == null) throw new AggregateException($"{nameof(aggregateRootId)} cannot be null");
+
+            var events = await _dbContext.EventStoreRecords.Where(record => record.AggregateRootId == aggregateRootId.ToString())
+                .OrderBy(record => record.Version).ToListAsync(cancellationToken).ConfigureAwait(false);
+
+            return events.Select(Transform).ToList().AsReadOnly();
+        }
+
+        private IDomainEvent Transform(EventStoreRecord record)
+        {
+            var data = JsonConvert.DeserializeObject(record.Data, _jsonSettings);
+            var evt = data as IDomainEvent;
+
+            return evt;
         }
     }
 }

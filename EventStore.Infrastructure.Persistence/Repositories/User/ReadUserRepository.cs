@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EventStore.Application.Entities.User;
+using EventStore.Application.Features.User;
 using EventStore.Application.Repositories.User;
 using EventStore.Infrastructure.Persistence.Entities;
+using EventStore.Infrastructure.Persistence.Entities.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventStore.Infrastructure.Persistence.Repositories.User
@@ -18,13 +20,14 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
             _databaseContext = databaseContext;
         }
         
-        public async Task<string> SaveUserAsync(ReadUser readUser, CancellationToken cancellationToken)
+        public async Task<string> SaveOrUpdateUserAsync(ReadUserModel readUser, CancellationToken cancellationToken)
         {
             var existingRecord = await LoadUserAsync(readUser.AggregateRootId, cancellationToken);
             if (existingRecord != null)
             {
                 existingRecord.FirstName = readUser.FirstName;
                 existingRecord.LastName = readUser.LastName;
+                existingRecord.Version++;
                 await _databaseContext.SaveChangesAsync(cancellationToken);
                 return readUser.AggregateRootId;
             }
@@ -35,9 +38,13 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
                 {
                     AggregateRootId = readUser.AggregateRootId,
                     FirstName = readUser.FirstName,
-                    LastName = readUser.LastName
+                    LastName = readUser.LastName,
+                    Version = ++readUser.Version
                 };
+
                 await _databaseContext.ReadUsers.AddAsync(record, cancellationToken);
+                await _databaseContext.SaveChangesAsync(cancellationToken);
+
                 return readUser.AggregateRootId;
             }
             catch
@@ -47,14 +54,18 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
             }
         }
 
-        public async Task<IEnumerable<ReadUser>> LoadUsersAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReadUserModel>> LoadUsersAsync(CancellationToken cancellationToken)
         {
-            return await _databaseContext.ReadUsers.ToListAsync(cancellationToken);
+            return (await _databaseContext.ReadUsers.ToListAsync(cancellationToken)).Select(r => ReadUserModel.CreateNewReadUser(r.AggregateRootId, r.FirstName, r.LastName, r.Version));
         }
 
-        private async Task<ReadUser> LoadUserAsync(string aggregateRootId, CancellationToken cancellationToken)
+        private async Task<ReadUserModel> LoadUserAsync(string aggregateRootId, CancellationToken cancellationToken)
         {
-            return await _databaseContext.ReadUsers.FindAsync(aggregateRootId);
+            var entity = await _databaseContext.ReadUsers.FindAsync(new[]{aggregateRootId}, cancellationToken);
+            
+            if (entity == null) return null;
+
+            return ReadUserModel.CreateNewReadUser(entity.AggregateRootId, entity.FirstName, entity.LastName, entity.Version);
         }
     }
 }

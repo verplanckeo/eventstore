@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventStore.Application.Entities.User;
+using EventStore.Application.Features.User;
 
 namespace EventStore.Application.Repositories.User
 {
     public interface IReadUserRepository
     {
-        Task<string> SaveUserAsync(ReadUser readUser, CancellationToken cancellationToken = default);
+        Task<string> SaveOrUpdateUserAsync(ReadUserModel readUser, CancellationToken cancellationToken = default);
 
-        Task<IEnumerable<ReadUser>> LoadUsersAsync(CancellationToken cancellationToken = default);
+        Task<IEnumerable<ReadUserModel>> LoadUsersAsync(CancellationToken cancellationToken = default);
     }
 }

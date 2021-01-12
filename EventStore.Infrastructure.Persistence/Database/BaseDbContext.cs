@@ -1,7 +1,6 @@
-﻿
-using EventStore.Application.Entities.User;
-using EventStore.Infrastructure.Persistence.Configurations;
+﻿using EventStore.Infrastructure.Persistence.Configurations;
 using EventStore.Infrastructure.Persistence.Entities;
+using EventStore.Infrastructure.Persistence.Entities.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventStore.Infrastructure.Persistence.Database

@@ -1,4 +1,4 @@
-﻿using EventStore.Application.Entities.User;
+﻿using EventStore.Infrastructure.Persistence.Entities.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

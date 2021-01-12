@@ -22,9 +22,9 @@ namespace EventStore.Application.Features.User.Register
         {
             var domainUser = Core.Domains.User.User.CreateNewUser(request.UserName, request.FirstName, request.LastName);
             var id = await _repository.SaveUserAsync(domainUser, cancellationToken);
-
+            
             var scope = _mediatorFactory.CreateScope();
-            await scope.SendAsync(UpdateReadUserCommand.CreateCommand(id.ToString(), request.FirstName, request.LastName), cancellationToken);
+            await scope.SendAsync(UpdateReadUserCommand.CreateCommand(id.ToString(), request.FirstName, request.LastName, domainUser.Version), cancellationToken);
 
             return RegisterUserMediatorCommandResponse.CreateResponse(id.ToString());
         }

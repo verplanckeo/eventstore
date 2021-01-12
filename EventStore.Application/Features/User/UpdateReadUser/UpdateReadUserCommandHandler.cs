@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EventStore.Application.Entities.User;
 using EventStore.Application.Repositories.User;
 using MediatR;
 
@@ -17,10 +16,7 @@ namespace EventStore.Application.Features.User.UpdateReadUser
 
         public async Task<Unit> Handle(UpdateReadUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await _repository.SaveUserAsync(new ReadUser
-            {
-                AggregateRootId = request.AggregateRootId, FirstName = request.FirstName, LastName = request.LastName
-            }, cancellationToken);
+            var result = await _repository.SaveOrUpdateUserAsync(ReadUserModel.CreateNewReadUser(request.AggregateRootId, request.FirstName, request.LastName, request.Version), cancellationToken);
 
             if (string.IsNullOrEmpty(result))
             {

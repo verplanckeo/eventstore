@@ -1,4 +1,4 @@
-﻿namespace EventStore.Application.Entities.User
+﻿namespace EventStore.Infrastructure.Persistence.Entities.User
 {
     /// <summary>
     /// Basic representation of a user record
@@ -11,6 +11,6 @@
 
         public string LastName { get; set; }
 
-        //public int Version { get; set; }
+        public int Version { get; set; }
     }
 }

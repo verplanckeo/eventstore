@@ -30,6 +30,11 @@ namespace EventStore.Core.Domains.User
             return user;
         }
 
+        public void ChangeAddress(string street, string city, string zipcode, string country)
+        {
+            Apply(new AddressChangedDomainEvent(street, city, zipcode, country));
+        }
+
         //To know how this method is called, check ...\EventStore.Core\DddSeedwork\EventSourcedAggregateRoot.cs
         //Using dynamic we call the "On(event)" method
         public void On(UserRegisteredDomainEvent evt)

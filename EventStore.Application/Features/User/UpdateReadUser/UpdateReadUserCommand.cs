@@ -10,16 +10,19 @@ namespace EventStore.Application.Features.User.UpdateReadUser
 
         public string LastName { get; set; }
 
-        private UpdateReadUserCommand(string aggregateRootId, string firstName, string lastName)
+        public int Version { get; set; }
+
+        private UpdateReadUserCommand(string aggregateRootId, string firstName, string lastName, int version)
         {
             AggregateRootId = aggregateRootId;
             FirstName = firstName;
             LastName = lastName;
+            Version = version;
         }
 
-        public static UpdateReadUserCommand CreateCommand(string aggregateRootId, string firstName, string lastName)
+        public static UpdateReadUserCommand CreateCommand(string aggregateRootId, string firstName, string lastName, int version)
         {
-            return new UpdateReadUserCommand(aggregateRootId, firstName, lastName);
+            return new UpdateReadUserCommand(aggregateRootId, firstName, lastName, version);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EventStore.Application.Entities.User;
+using EventStore.Infrastructure.Persistence.Entities.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventStore.Infrastructure.Persistence.Entities
