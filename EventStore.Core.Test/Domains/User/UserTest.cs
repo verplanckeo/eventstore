@@ -20,7 +20,7 @@ namespace EventStore.Core.Test.Domains.User
             // Arrange
 
             // Act
-            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke");
+            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke", "demo");
 
             // Assert
             Assert.AreEqual("overplan", user.UserName);
@@ -34,7 +34,7 @@ namespace EventStore.Core.Test.Domains.User
         public void ChangeAddress_Ok()
         {
             // Arrange
-            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke");
+            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke", "demo");
 
             // Act
             user.ChangeAddress("street", "city", "1", "belgium");

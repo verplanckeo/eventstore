@@ -15,11 +15,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Services", "Even
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Application", "EventStore.Application\EventStore.Application.csproj", "{1DF56084-3370-4DFB-AEA3-8C69A8314E26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Application.Test", "EventStore.Application.Test\EventStore.Application.Test.csproj", "{4984A023-8453-41AB-9FF0-AF0A9F5B100C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Application.Test", "EventStore.Application.Test\EventStore.Application.Test.csproj", "{4984A023-8453-41AB-9FF0-AF0A9F5B100C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Core.Test", "EventStore.Core.Test\EventStore.Core.Test.csproj", "{B42AB3FB-4414-464E-844D-F076CE64D4F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Core.Test", "EventStore.Core.Test\EventStore.Core.Test.csproj", "{B42AB3FB-4414-464E-844D-F076CE64D4F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Infrastructure.Persistence.Test", "EventStore.Infrastructure.Persistence.Test\EventStore.Infrastructure.Persistence.Test.csproj", "{ABD1ED92-1072-4511-A1EE-89867FBD3618}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStore.Infrastructure.Persistence.Test", "EventStore.Infrastructure.Persistence.Test\EventStore.Infrastructure.Persistence.Test.csproj", "{ABD1ED92-1072-4511-A1EE-89867FBD3618}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.Api", "EventStore.Api\EventStore.Api.csproj", "{B6A77541-2EE3-4868-9E7D-31971ACD9330}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Hosting", "01. Hosting", "{9014E2D0-8B17-4AC2-B5D5-5A9D47357EA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Infrastructure", "02. Infrastructure", "{B6948E09-5B62-49B0-ABEC-422DCEAF215F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04. Application", "04. Application", "{8507EA12-3ED0-42C3-8288-DAE54B8B8CCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Services", "03. Services", "{935DE33B-E292-4E90-B49F-B87ECFFABAAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,9 +73,25 @@ Global
 		{ABD1ED92-1072-4511-A1EE-89867FBD3618}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABD1ED92-1072-4511-A1EE-89867FBD3618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABD1ED92-1072-4511-A1EE-89867FBD3618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A77541-2EE3-4868-9E7D-31971ACD9330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A77541-2EE3-4868-9E7D-31971ACD9330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A77541-2EE3-4868-9E7D-31971ACD9330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A77541-2EE3-4868-9E7D-31971ACD9330}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69C3990E-9501-4E33-8E89-2B5106B1BEEF} = {9014E2D0-8B17-4AC2-B5D5-5A9D47357EA3}
+		{9E451A70-65AF-426B-A7EE-9BF39A77586A} = {8507EA12-3ED0-42C3-8288-DAE54B8B8CCB}
+		{3388D1C5-8203-41FE-A607-2C7E947532E2} = {B6948E09-5B62-49B0-ABEC-422DCEAF215F}
+		{F92060A2-8F3D-44AE-809F-B3EDA6855453} = {B6948E09-5B62-49B0-ABEC-422DCEAF215F}
+		{B0D2CDD0-71D6-451B-B9A5-428FEB8ED3DD} = {935DE33B-E292-4E90-B49F-B87ECFFABAAF}
+		{1DF56084-3370-4DFB-AEA3-8C69A8314E26} = {8507EA12-3ED0-42C3-8288-DAE54B8B8CCB}
+		{4984A023-8453-41AB-9FF0-AF0A9F5B100C} = {8507EA12-3ED0-42C3-8288-DAE54B8B8CCB}
+		{B42AB3FB-4414-464E-844D-F076CE64D4F0} = {8507EA12-3ED0-42C3-8288-DAE54B8B8CCB}
+		{ABD1ED92-1072-4511-A1EE-89867FBD3618} = {B6948E09-5B62-49B0-ABEC-422DCEAF215F}
+		{B6A77541-2EE3-4868-9E7D-31971ACD9330} = {9014E2D0-8B17-4AC2-B5D5-5A9D47357EA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8FA7164F-D16A-4CEB-94D1-808D309E8EF8}

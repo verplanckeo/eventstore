@@ -10,16 +10,19 @@ namespace EventStore.Application.Features.User.Register
 
         public string LastName { get; set; }
 
-        private RegisterUserMediatorCommand(string userName, string firstName, string lastName)
+        public string Password { get; set; }
+
+        private RegisterUserMediatorCommand(string userName, string firstName, string lastName, string password)
         {
             UserName = userName;
             FirstName = firstName;
             LastName = lastName;
+            Password = password;
         }
 
-        public static RegisterUserMediatorCommand CreateCommand(string userName, string firstName, string lastName)
+        public static RegisterUserMediatorCommand CreateCommand(string userName, string firstName, string lastName, string password)
         {
-            return new RegisterUserMediatorCommand(userName, firstName, lastName);
+            return new RegisterUserMediatorCommand(userName, firstName, lastName, password);
         }
     }
 }

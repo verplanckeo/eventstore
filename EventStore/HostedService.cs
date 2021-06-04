@@ -49,7 +49,7 @@ namespace EventStore
             _logger.LogInformation($"Registering new user ...");
 
             var scope = _mediatorFactory.CreateScope();
-            var result = await scope.SendAsync(RegisterUserMediatorCommand.CreateCommand("overplan", "Olivier", "Verplancke"), cancellationToken);
+            var result = await scope.SendAsync(RegisterUserMediatorCommand.CreateCommand("", "Olivier", "Verplancke", "demo"), cancellationToken);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             _logger.LogInformation($"User was registered with Id: {result.Id}");

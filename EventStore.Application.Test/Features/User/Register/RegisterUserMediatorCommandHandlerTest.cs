@@ -29,7 +29,7 @@ namespace EventStore.Application.Test.Features.User.Register
         public async Task RegisterUser_Success()
         {
             // Arrange
-            var request = RegisterUserMediatorCommand.CreateCommand("overplan", "olivier", "verplancke");
+            var request = RegisterUserMediatorCommand.CreateCommand("overplan", "olivier", "verplancke", "demo");
             
             var fakeScope = A.Fake<IMediatorScope>();
             A.CallTo(() => _mediatorFactory.CreateScope()).Returns(fakeScope);
@@ -41,7 +41,7 @@ namespace EventStore.Application.Test.Features.User.Register
             A.CallTo(() =>
                 _repository.SaveUserAsync(A<Core.Domains.User.User>.That.Matches(u =>
                         u.FirstName == request.FirstName && u.LastName == request.LastName &&
-                        u.UserName == request.UserName), default)).MustHaveHappenedOnceExactly();
+                        u.UserName == request.UserName && u.Password == request.Password), default)).MustHaveHappenedOnceExactly();
 
             A.CallTo(() =>
                     fakeScope.SendAsync(A<UpdateReadUserCommand>.That.Matches(c =>

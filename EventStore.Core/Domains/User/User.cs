@@ -10,6 +10,7 @@ namespace EventStore.Core.Domains.User
         public string UserName { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
+        public string Password { get; private set; }
         public Address UserAddress { get; private set; }
 
         private User() { }
@@ -20,12 +21,12 @@ namespace EventStore.Core.Domains.User
         /// <param name="events"></param>
         public User(IEnumerable<IDomainEvent> events) : base(events) { }
 
-        public static User CreateNewUser(string userName, string firstName, string lastName)
+        public static User CreateNewUser(string userName, string firstName, string lastName, string password)
         {
             var user = new User();
 
             //This method will first call the "On(event)" method of this particular aggregate followed by adding the event to the list of domain events
-            user.Apply(new UserRegisteredDomainEvent(new UserId().ToString(), userName, firstName, lastName));
+            user.Apply(new UserRegisteredDomainEvent(new UserId().ToString(), userName, firstName, lastName, password));
 
             return user;
         }
@@ -43,6 +44,7 @@ namespace EventStore.Core.Domains.User
             UserName = evt.UserName;
             FirstName = evt.FirstName;
             LastName = evt.LastName;
+            Password = evt.Password;
         }
 
         public void On(AddressChangedDomainEvent evt)

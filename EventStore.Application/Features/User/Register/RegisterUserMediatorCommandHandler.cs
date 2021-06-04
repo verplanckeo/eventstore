@@ -20,7 +20,7 @@ namespace EventStore.Application.Features.User.Register
 
         public async Task<RegisterUserMediatorCommandResponse> Handle(RegisterUserMediatorCommand request, CancellationToken cancellationToken)
         {
-            var domainUser = Core.Domains.User.User.CreateNewUser(request.UserName, request.FirstName, request.LastName);
+            var domainUser = Core.Domains.User.User.CreateNewUser(request.UserName, request.FirstName, request.LastName, request.Password);
             var id = await _repository.SaveUserAsync(domainUser, cancellationToken);
             
             var scope = _mediatorFactory.CreateScope();

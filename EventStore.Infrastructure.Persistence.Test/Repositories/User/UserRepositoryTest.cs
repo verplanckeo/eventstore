@@ -27,13 +27,13 @@ namespace EventStore.Infrastructure.Persistence.Test.Repositories.User
         public async Task Given_UserAggregateRegistered_When_SavedToRepository_ShouldBeSameWhenFetched()
         {
             // Arrange
-            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke");
+            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke", "demo");
 
             A.CallTo(() => _store.SaveAsync(user.Id, user.Version, user.DomainEvents, "UserAggregateRoot", default))
                 .Returns(Task.CompletedTask);
 
             A.CallTo(() => _store.LoadAsync(user.Id, default)).Returns(
-                new List<DomainEvent> {new UserRegisteredDomainEvent(user.Id.ToString(), user.UserName, user.FirstName, user.LastName)
+                new List<DomainEvent> {new UserRegisteredDomainEvent(user.Id.ToString(), user.UserName, user.FirstName, user.LastName, user.Password)
             }.AsReadOnly());
 
             // Act
