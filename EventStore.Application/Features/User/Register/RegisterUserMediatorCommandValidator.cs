@@ -4,7 +4,7 @@ namespace EventStore.Application.Features.User.Register
 {
     public class RegisterUserMediatorCommandValidator : AbstractValidator<RegisterUserMediatorCommand>
     {
-        public RegisterUserMediatorCommandValidator()
+        public RegisterUserMediatorCommandValidator()   
         {
             RuleFor(model => model.FirstName)
                 .NotNull()

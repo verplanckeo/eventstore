@@ -1,6 +1,4 @@
-﻿using EventStore.Application.Features.User.Register;
-
-namespace EventStore.Api.Features.User.Register
+﻿namespace EventStore.Api.Features.User.Register
 {
     /// <summary>
     /// Response model when user successfully registered.

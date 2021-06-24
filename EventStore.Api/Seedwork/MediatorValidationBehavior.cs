@@ -5,19 +5,36 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using ValidationException = FluentValidation.ValidationException;
 
 namespace EventStore.Api.Seedwork
 {
+    /// <summary>
+    /// Class used to map Mediatr Validation classes to the DI container
+    /// </summary>
+    /// <typeparam name="TRequest"></typeparam>
+    /// <typeparam name="TResponse"></typeparam>
     public class MediatorValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest: IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+        /// <summary>
+        /// CTor
+        /// </summary>
+        /// <param name="validators"></param>
         public MediatorValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
         {
             _validators = validators;
         }
 
+        /// <summary>
+        /// <see cref="IPipelineBehavior{TRequest,TResponse}"/>
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <param name="next"></param>
+        /// <returns></returns>
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             var context = new ValidationContext<TRequest>(request);
@@ -29,7 +46,7 @@ namespace EventStore.Api.Seedwork
 
             if (failures.Count != 0)
             {
-                throw new ValidationException(failures);
+                throw new ValidationException(failures.Distinct(new ValidationFailureComparer()));
             }
 
             return next();
