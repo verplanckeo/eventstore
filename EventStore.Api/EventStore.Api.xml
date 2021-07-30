@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventStore.Api</name>
+    </assembly>
+    <members>
+        <member name="T:EventStore.Api.Features.User.Register.Request">
+            <summary>
+            Request model to register a new user.
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Request.UserName">
+            <summary>
+            User name to login (i.e.: overplan)
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Request.Password">
+            <summary>
+            User's password (i.e.: SuperSecureLongPassword)
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Request.FirstName">
+            <summary>
+            Person's first name (i.e.: Olivier)
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Request.LastName">
+            <summary>
+            Person's last name (i.e.: Verplancke)
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Register.Request.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            CTor
+            </summary>
+            <param name="userName"><see cref="P:EventStore.Api.Features.User.Register.Request.UserName"/></param>
+            <param name="password"><see cref="P:EventStore.Api.Features.User.Register.Request.Password"/></param>
+            <param name="firstName"><see cref="P:EventStore.Api.Features.User.Register.Request.FirstName"/></param>
+            <param name="lastName"><see cref="P:EventStore.Api.Features.User.Register.Request.LastName"/></param>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Register.Request.Create(System.String,System.String,System.String,System.String)">
+            <summary>
+            Create a new instance of <see cref="T:EventStore.Api.Features.User.Register.Request"/>
+            </summary>
+            <param name="userName"><see cref="P:EventStore.Api.Features.User.Register.Request.UserName"/></param>
+            <param name="password"><see cref="P:EventStore.Api.Features.User.Register.Request.Password"/></param>
+            <param name="firstName"><see cref="P:EventStore.Api.Features.User.Register.Request.FirstName"/></param>
+            <param name="lastName"><see cref="P:EventStore.Api.Features.User.Register.Request.LastName"/></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Features.User.Register.Response">
+            <summary>
+            Response model when user successfully registered.
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Response.Id">
+            <summary>
+            Identifier of the user
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Response.UserName">
+            <summary>
+            User name to login (i.e.: overplan)
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Response.Token">
+            <summary>
+            Access token to authorize the user to access resources of the EventStore Api
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Response.FirstName">
+            <summary>
+            Person's first name (i.e.: Olivier)
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Register.Response.LastName">
+            <summary>
+            Person's last name (i.e.: Verplancke)
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Register.Response.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            CTor
+            </summary>
+            <param name="id"><see cref="P:EventStore.Api.Features.User.Register.Response.Id"/></param>
+            <param name="userName"><see cref="P:EventStore.Api.Features.User.Register.Response.UserName"/></param>
+            <param name="token"><see cref="P:EventStore.Api.Features.User.Register.Response.Token"/></param>
+            <param name="firstName"><see cref="P:EventStore.Api.Features.User.Register.Response.FirstName"/></param>
+            <param name="lastName"><see cref="P:EventStore.Api.Features.User.Register.Response.LastName"/></param>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Register.Response.Create(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Create a new instance of <see cref="T:EventStore.Api.Features.User.Register.Response"/>
+            </summary>
+            <param name="id"></param>
+            <param name="token"></param>
+            <param name="userName"></param>
+            <param name="firstName"></param>
+            <param name="lastName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Features.User.UsersController">
+            <summary>
+            Api controller for basic user management (register, list, change ...)
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Features.User.UsersController.#ctor(EventStore.Application.Mediator.IMediatorFactory)">
+            <summary>
+            CTor
+            </summary>
+            <param name="mediatorFactory"></param>
+        </member>
+        <member name="M:EventStore.Api.Features.User.UsersController.Register(EventStore.Api.Features.User.Register.Request,System.Threading.CancellationToken)">
+            <summary>
+            Register new user on the EventStore Api
+            </summary>
+            <param name="request">Request to register user</param>
+            <param name="cancellationToken">When cancellation is requested</param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Seedwork.DbContextFactory">
+            <summary>
+            Db context factory
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.DbContextFactory.CreateDbContext(System.String[])">
+            <summary>
+            Create a new instance of db context
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Seedwork.MediatorFactory">
+            <summary>
+            Factory used to add features in the future for mediator scopes
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorFactory.#ctor(Autofac.ILifetimeScope)">
+            <summary>
+            CTor
+            </summary>
+            <param name="lifetimeScope"></param>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorFactory.CreateScope">
+            <summary>
+            Create mediatorscope instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Seedwork.MediatorScope">
+            <summary>
+            Mediator scope
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorScope.#ctor(MediatR.IMediator)">
+            <summary>
+            CTor
+            </summary>
+            <param name="mediator"></param>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorScope.PublishAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <typeparam name="TNotification"></typeparam>
+            <param name="notification"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Seedwork.MediatorValidationBehavior`2">
+            <summary>
+            Class used to map Mediatr Validation classes to the DI container
+            </summary>
+            <typeparam name="TRequest"></typeparam>
+            <typeparam name="TResponse"></typeparam>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorValidationBehavior`2.#ctor(System.Collections.Generic.IEnumerable{FluentValidation.IValidator{`0}})">
+            <summary>
+            CTor
+            </summary>
+            <param name="validators"></param>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorValidationBehavior`2.Handle(`0,System.Threading.CancellationToken,MediatR.RequestHandlerDelegate{`1})">
+            <summary>
+            <see cref="T:MediatR.IPipelineBehavior`2"/>
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Seedwork.ValidationFailureComparer">
+            <summary>
+            Fluent ValidationFailure comparison
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.ValidationFailureComparer.Equals(FluentValidation.Results.ValidationFailure,FluentValidation.Results.ValidationFailure)">
+            <summary>
+            Check if 2 validation failures are the same
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.ValidationFailureComparer.GetHashCode(FluentValidation.Results.ValidationFailure)">
+            <summary>
+            Override GetHashCode with fields which are used to check if 2 objects are the same.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Startup.LoadConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:EventStore.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:EventStore.Api.Startup.Configuration">
+            <summary>
+            DI Configuration of .NET
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:EventStore.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:EventStore.Api.Startup.LoadMediator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+    </members>
+</doc>

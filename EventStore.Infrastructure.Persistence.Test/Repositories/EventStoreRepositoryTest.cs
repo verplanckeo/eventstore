@@ -25,7 +25,7 @@ namespace EventStore.Infrastructure.Persistence.Test.Repositories
         {
             // Arrange
             var aggregateId = new UserId();
-            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke", "demo");
+            var user = Core.Domains.User.User.CreateNewUser("overplan", "olivier", "verplancke");
 
             // Act
             await _sut.SaveAsync(aggregateId, user.Version, user.DomainEvents, "UserRegisteredAggregate", default);

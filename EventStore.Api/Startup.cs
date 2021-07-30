@@ -75,12 +75,19 @@ namespace EventStore.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
-            
+
+            app.UseCors(c =>
+            {
+                c.WithOrigins("http://localhost:4200"); //todo - read this from configuration
+                c.WithHeaders("authorization", "accept", "content-type", "origin"); //todo - add custom headers for multi tenancy
+                c.AllowAnyMethod();
+            });
+
+            app.UseHttpsRedirection();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

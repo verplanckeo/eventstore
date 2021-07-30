@@ -13,15 +13,13 @@ namespace EventStore.Core.Domains.User.DomainEvents
 
         public string LastName { get; set; }
 
-        public string Password { get; set; }
 
-        public UserRegisteredDomainEvent(string userId, string userName, string firstName, string lastName, string password)
+        public UserRegisteredDomainEvent(string userId, string userName, string firstName, string lastName)
         {
             UserId = userId;
             UserName = userName;
             FirstName = firstName;
             LastName = lastName;
-            Password = password;
         }
     }
 }

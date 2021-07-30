@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace EventStore.Api
 {
     public partial class Startup
     {
+        /// <summary>
+        /// Load swagger settings
+        /// </summary>
+        /// <param name="services"></param>
         public void LoadSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>

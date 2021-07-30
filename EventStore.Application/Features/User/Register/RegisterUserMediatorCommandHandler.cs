@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using EventStore.Application.Features.User.Password;
 using EventStore.Application.Features.User.UpdateReadUser;
 using EventStore.Application.Mediator;
 using EventStore.Application.Repositories.User;
@@ -20,11 +21,15 @@ namespace EventStore.Application.Features.User.Register
 
         public async Task<RegisterUserMediatorCommandResponse> Handle(RegisterUserMediatorCommand request, CancellationToken cancellationToken)
         {
-            var domainUser = Core.Domains.User.User.CreateNewUser(request.UserName, request.FirstName, request.LastName, request.Password);
-            var id = await _repository.SaveUserAsync(domainUser, cancellationToken);
-            
             var scope = _mediatorFactory.CreateScope();
-            await scope.SendAsync(UpdateReadUserCommand.CreateCommand(id.ToString(), request.FirstName, request.LastName, domainUser.Version), cancellationToken);
+
+            var domainUser = Core.Domains.User.User.CreateNewUser(request.UserName, request.FirstName, request.LastName);
+            var hashedPasswordResult = await scope.SendAsync(GetHashedPasswordMediatorQuery.CreateQuery(request.Password), cancellationToken);
+            domainUser.ChangePassword(hashedPasswordResult.HashedPassword, hashedPasswordResult.Salt);
+
+            var id = await _repository.SaveUserAsync(domainUser, cancellationToken);
+
+            await scope.SendAsync(UpdateReadUserCommand.CreateCommand(id.ToString(), request.FirstName, request.LastName, request.UserName, domainUser.Version), cancellationToken);
 
             return RegisterUserMediatorCommandResponse.CreateResponse(id.ToString());
         }

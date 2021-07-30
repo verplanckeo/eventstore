@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EventStore.Core.DddSeedwork;
 using EventStore.Core.Domains.User.DomainEvents;
+using System.Security.Cryptography;
 
 namespace EventStore.Core.Domains.User
 {
@@ -10,7 +12,7 @@ namespace EventStore.Core.Domains.User
         public string UserName { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-        public string Password { get; private set; }
+        public Password Password { get; private set; }
         public Address UserAddress { get; private set; }
 
         private User() { }
@@ -21,14 +23,19 @@ namespace EventStore.Core.Domains.User
         /// <param name="events"></param>
         public User(IEnumerable<IDomainEvent> events) : base(events) { }
 
-        public static User CreateNewUser(string userName, string firstName, string lastName, string password)
+        public static User CreateNewUser(string userName, string firstName, string lastName)
         {
             var user = new User();
 
             //This method will first call the "On(event)" method of this particular aggregate followed by adding the event to the list of domain events
-            user.Apply(new UserRegisteredDomainEvent(new UserId().ToString(), userName, firstName, lastName, password));
+            user.Apply(new UserRegisteredDomainEvent(new UserId().ToString(), userName, firstName, lastName));
 
             return user;
+        }
+
+        public void ChangePassword(string password, string salt)
+        {
+            Apply(new PasswordChangedDomainEvent(password, salt));
         }
 
         public void ChangeAddress(string street, string city, string zipcode, string country)
@@ -44,7 +51,11 @@ namespace EventStore.Core.Domains.User
             UserName = evt.UserName;
             FirstName = evt.FirstName;
             LastName = evt.LastName;
-            Password = evt.Password;
+        }
+
+        public void On(PasswordChangedDomainEvent evt)
+        {
+            Password = new Password(evt.Password, evt.Salt);
         }
 
         public void On(AddressChangedDomainEvent evt)

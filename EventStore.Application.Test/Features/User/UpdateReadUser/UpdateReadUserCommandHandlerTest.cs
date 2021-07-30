@@ -26,7 +26,7 @@ namespace EventStore.Application.Test.Features.User.UpdateReadUser
         public async Task UpdateReadUser_Success()
         {
             // Arrange
-            var request = UpdateReadUserCommand.CreateCommand("root", "olivier", "verplancke", 0);
+            var request = UpdateReadUserCommand.CreateCommand("root", "olivier", "verplancke", "overplan", 0);
 
             // Act
             await _sut.Handle(request, default);

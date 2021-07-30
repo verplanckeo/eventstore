@@ -12,6 +12,12 @@ namespace EventStore.Application.Features.User.Register
 
         public string Password { get; set; }
 
+        //TODO: Rework default constructor - for now it's use only used for unit tests
+        public RegisterUserMediatorCommand()
+        {
+            
+        }
+
         private RegisterUserMediatorCommand(string userName, string firstName, string lastName, string password)
         {
             UserName = userName;

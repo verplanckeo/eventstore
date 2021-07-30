@@ -11,6 +11,8 @@ namespace EventStore.Infrastructure.Persistence.Configurations
             builder.ToTable(Constants.Database.TableReadUser, Constants.Database.SchemaRead);
 
             builder.HasKey(key => new { key.AggregateRootId });
+
+            builder.HasKey(key => new { key.UserName });
         }
     }
 }

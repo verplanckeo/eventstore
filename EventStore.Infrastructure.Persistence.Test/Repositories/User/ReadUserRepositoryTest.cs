@@ -27,7 +27,7 @@ namespace EventStore.Infrastructure.Persistence.Test.Repositories.User
         public async Task Given_ReadUserModelIsStored_Should_ReturnedSame_When_Fetched()
         {
             // Arrange
-            var readModel = ReadUserModel.CreateNewReadUser("aggregateRootId", "olivier", "verplancke", 0);
+            var readModel = ReadUserModel.CreateNewReadUser("aggregateRootId", "olivier", "verplancke", "overplan", 0);
 
             // Act
             await _sut.SaveOrUpdateUserAsync(readModel, default);
@@ -39,6 +39,7 @@ namespace EventStore.Infrastructure.Persistence.Test.Repositories.User
             Assert.AreEqual(readModel.AggregateRootId, fetchedReadModels[0].AggregateRootId);
             Assert.AreEqual(readModel.FirstName, fetchedReadModels[0].FirstName);
             Assert.AreEqual(readModel.LastName, fetchedReadModels[0].LastName);
+            Assert.AreEqual(readModel.UserName, fetchedReadModels[0].UserName);
             Assert.AreEqual(1, fetchedReadModels[0].Version);
         }
     }

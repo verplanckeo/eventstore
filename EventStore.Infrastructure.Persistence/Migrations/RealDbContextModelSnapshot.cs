@@ -54,8 +54,11 @@ namespace EventStore.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("EventStore.Infrastructure.Persistence.Entities.User.ReadUser", b =>
                 {
-                    b.Property<string>("AggregateRootId")
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AggregateRootId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -66,7 +69,7 @@ namespace EventStore.Infrastructure.Persistence.Migrations
                     b.Property<int>("Version")
                         .HasColumnType("int");
 
-                    b.HasKey("AggregateRootId");
+                    b.HasKey("UserName");
 
                     b.ToTable("User", "read");
                 });
