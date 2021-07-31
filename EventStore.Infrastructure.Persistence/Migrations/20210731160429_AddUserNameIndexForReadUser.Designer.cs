@@ -4,14 +4,16 @@ using EventStore.Infrastructure.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventStore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(RealDbContext))]
-    partial class RealDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210731160429_AddUserNameIndexForReadUser")]
+    partial class AddUserNameIndexForReadUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,10 +73,7 @@ namespace EventStore.Infrastructure.Persistence.Migrations
 
                     b.HasKey("AggregateRootId");
 
-                    b.HasIndex(new[] { "UserName" }, "IX_Username")
-                        .IsUnique()
-                        .HasFilter("[UserName] IS NOT NULL")
-                        .IncludeProperties(new[] { "FirstName", "LastName" });
+                    b.HasIndex(new[] { "UserName" }, "IX_Username");
 
                     b.ToTable("User", "read");
                 });

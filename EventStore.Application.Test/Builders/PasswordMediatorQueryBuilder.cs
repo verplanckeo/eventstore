@@ -5,13 +5,13 @@ namespace EventStore.Application.Test.Builders
 {
     public class PasswordMediatorQueryBuilder : GenericBuilder<GetHashedPasswordMediatorQuery>
     {
-        private GetHashedPasswordMediatorQuery _model => GetHashedPasswordMediatorQuery.CreateQuery("securepassword");
+        private static readonly GetHashedPasswordMediatorQuery Model = GetHashedPasswordMediatorQuery.CreateQuery("securepassword");
 
         public PasswordMediatorQueryBuilder()
         {
             SetDefaults(model =>
             {
-                model.Password = _model.Password;
+                model.Password = Model.Password;
             });
         }
     }

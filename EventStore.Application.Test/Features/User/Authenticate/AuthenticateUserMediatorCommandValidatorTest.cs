@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using EventStore.Application.Features.User.Authenticate;
 using EventStore.Application.Test.Builders;
 using EventStore.Shared.Test;
+using FluentValidation.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EventStore.Application.Test.Features.User.Authenticate
@@ -20,24 +22,27 @@ namespace EventStore.Application.Test.Features.User.Authenticate
         }
 
         [TestMethod]
-        public async Task Given_A_User_Who_Wishes_To_Authenticate_Validation__Success()
+        public void Validate_A_Given_User_Who_Wishes_To_Authenticate__Success()
         {
             // Arrange
             var authenticatingUser = _builder.Build();
 
             // Act
-            var result = await _sut.ValidateAsync(authenticatingUser);
+            var result = _sut.Validate(authenticatingUser);
 
             // Assert
             Assert.IsTrue(result.IsValid);
+
+            WriteErrorOutput(result);
         }
 
         [TestMethod]
-        [DataRow("", 1, false)]
-        [DataRow("u", 1,  false)]
-        [DataRow("us", 1, false)]
+        [DataRow(null, 3, false)]
+        [DataRow("", 3, false)]
+        [DataRow("u", 2,  false)]
+        [DataRow("us", 0, true)]
         [DataRow("user", 0, true)]
-        public async Task Given_A_User_Without_UserName_Who_Wishes_To_Authenticate__Validation(string userName, int numberOfErrors, bool isValid)
+        public void Validate_A_Given_User_Without_UserName_Who_Wishes_To_Authenticate__Validation(string userName, int numberOfErrors, bool isValid)
         {
             // Arrange
             var authenticateUserCommand = _builder
@@ -45,11 +50,44 @@ namespace EventStore.Application.Test.Features.User.Authenticate
                 .Build();
 
             // Act
-            var result = await _sut.ValidateAsync(authenticateUserCommand);
+            var result = _sut.Validate(authenticateUserCommand);
 
             // Assert
             Assert.AreEqual(isValid, result.IsValid);
             Assert.AreEqual(numberOfErrors, result.Errors.Count, numberOfErrors);
+
+            WriteErrorOutput(result);
+        }
+
+        [TestMethod]
+        [DataRow(null, 3, false)]
+        [DataRow("", 3, false)]
+        [DataRow("s", 2,  false)]
+        [DataRow("se", 3, false)]
+        [DataRow("secure", 0, true)]
+        public void Validate_A_Given_User_Without_Password_Who_Wishes_To_Authenticate__Validation(string password, int numberOfErrors, bool isValid)
+        {
+            // Arrange
+            var authenticateUserCommand = _builder
+                .With(command => command.Password, password)
+                .Build();
+
+            // Act
+            var result = _sut.Validate(authenticateUserCommand);
+
+            // Assert
+            Assert.AreEqual(isValid, result.IsValid);
+            Assert.AreEqual(numberOfErrors, result.Errors.Count, numberOfErrors);
+            
+            WriteErrorOutput(result);
+        }
+
+        private void WriteErrorOutput(ValidationResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
         }
     }
 }

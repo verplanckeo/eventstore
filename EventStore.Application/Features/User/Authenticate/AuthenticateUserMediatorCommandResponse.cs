@@ -13,7 +13,7 @@
         /// <summary>
         /// Access Token
         /// </summary>
-        public string Token { get; }
+        public string Token { get; set; } //todo - make all properties get only, for now they are set as well for unit tests.
 
         /// <summary>
         /// CTor

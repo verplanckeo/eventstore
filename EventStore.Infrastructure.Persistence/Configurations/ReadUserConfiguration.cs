@@ -12,7 +12,9 @@ namespace EventStore.Infrastructure.Persistence.Configurations
 
             builder.HasKey(key => new { key.AggregateRootId });
 
-            builder.HasKey(key => new { key.UserName });
+            builder.HasIndex(model => new {model.UserName}, "IX_Username")
+                .IsUnique()
+                .IncludeProperties(model => new{ model.FirstName, model.LastName });
         }
     }
 }

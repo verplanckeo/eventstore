@@ -5,14 +5,14 @@ namespace EventStore.Application.Test.Builders
 {
     public class AuthenticateUserMediatorCommandBuilder : GenericBuilder<AuthenticateUserMediatorCommand>
     {
-        private AuthenticateUserMediatorCommand _model => AuthenticateUserMediatorCommand.CreateCommand("overplan", "securepassword");
+        private static readonly AuthenticateUserMediatorCommand Model = AuthenticateUserMediatorCommand.CreateCommand("overplan", "securepassword");
         
         public AuthenticateUserMediatorCommandBuilder()
         {
             SetDefaults(model =>
             {
-                model.Password = _model.Password;
-                model.UserName = model.UserName;
+                model.Password = Model.Password;
+                model.UserName = Model.UserName;
             });
         }
     }

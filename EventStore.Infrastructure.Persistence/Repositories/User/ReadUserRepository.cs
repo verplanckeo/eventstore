@@ -22,7 +22,7 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
         
         public async Task<string> SaveOrUpdateUserAsync(ReadUserModel readUser, CancellationToken cancellationToken)
         {
-            var existingRecord = await LoadUserAsync(readUser.AggregateRootId, cancellationToken);
+            var existingRecord = await LoadUserByAggregateRootIdAsync(readUser.AggregateRootId, cancellationToken);
             if (existingRecord != null)
             {
                 existingRecord.FirstName = readUser.FirstName;
@@ -61,10 +61,19 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
             return (await _databaseContext.ReadUsers.ToListAsync(cancellationToken)).Select(r => ReadUserModel.CreateNewReadUser(r.AggregateRootId, r.FirstName, r.LastName, r.UserName, r.Version));
         }
 
-        private async Task<ReadUserModel> LoadUserAsync(string aggregateRootId, CancellationToken cancellationToken)
+        private async Task<ReadUserModel> LoadUserByAggregateRootIdAsync(string aggregateRootId, CancellationToken cancellationToken)
         {
             var entity = await _databaseContext.ReadUsers.FindAsync(new[]{aggregateRootId}, cancellationToken);
             
+            if (entity == null) return null;
+
+            return ReadUserModel.CreateNewReadUser(entity.AggregateRootId, entity.FirstName, entity.LastName, entity.UserName, entity.Version);
+        }
+
+        public async Task<ReadUserModel> LoadUserByUserNameAsync(string userName, CancellationToken cancellationToken)
+        {
+            var entity = await _databaseContext.ReadUsers.SingleAsync(u => u.UserName == userName, cancellationToken);
+
             if (entity == null) return null;
 
             return ReadUserModel.CreateNewReadUser(entity.AggregateRootId, entity.FirstName, entity.LastName, entity.UserName, entity.Version);

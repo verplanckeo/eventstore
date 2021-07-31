@@ -4,6 +4,66 @@
         <name>EventStore.Api</name>
     </assembly>
     <members>
+        <member name="T:EventStore.Api.Features.User.Authenticate.Request">
+            <summary>
+            Request model to authenticate a user.
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Authenticate.Request.UserName">
+            <summary>
+            User name to login (i.e.: overplan)
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Authenticate.Request.Password">
+            <summary>
+            User's password (i.e.: SuperSecureLongPassword)
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Authenticate.Request.#ctor(System.String,System.String)">
+            <summary>
+            CTor
+            </summary>
+            <param name="userName"><see cref="P:EventStore.Api.Features.User.Authenticate.Request.UserName"/></param>
+            <param name="password"><see cref="P:EventStore.Api.Features.User.Authenticate.Request.Password"/></param>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Authenticate.Request.CreateRequest(System.String,System.String)">
+            <summary>
+            Create new instance of <see cref="T:EventStore.Api.Features.User.Authenticate.Request"/>
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Features.User.Authenticate.Response">
+            <summary>
+            Response returned when user is authenticated
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Authenticate.Response.Id">
+            <summary>
+            Identifier of the user
+            </summary>
+        </member>
+        <member name="P:EventStore.Api.Features.User.Authenticate.Response.Token">
+            <summary>
+            Access Token
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Authenticate.Response.#ctor(System.String,System.String)">
+            <summary>
+            CTor
+            </summary>
+            <param name="id"></param>
+            <param name="token"></param>
+        </member>
+        <member name="M:EventStore.Api.Features.User.Authenticate.Response.CreateResponse(System.String,System.String)">
+            <summary>
+            Return new instance of <see cref="T:EventStore.Api.Features.User.Authenticate.Response"/>
+            </summary>
+            <param name="id"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
         <member name="T:EventStore.Api.Features.User.Register.Request">
             <summary>
             Request model to register a new user.
@@ -63,11 +123,6 @@
             User name to login (i.e.: overplan)
             </summary>
         </member>
-        <member name="P:EventStore.Api.Features.User.Register.Response.Token">
-            <summary>
-            Access token to authorize the user to access resources of the EventStore Api
-            </summary>
-        </member>
         <member name="P:EventStore.Api.Features.User.Register.Response.FirstName">
             <summary>
             Person's first name (i.e.: Olivier)
@@ -78,22 +133,20 @@
             Person's last name (i.e.: Verplancke)
             </summary>
         </member>
-        <member name="M:EventStore.Api.Features.User.Register.Response.#ctor(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:EventStore.Api.Features.User.Register.Response.#ctor(System.String,System.String,System.String,System.String)">
             <summary>
             CTor
             </summary>
             <param name="id"><see cref="P:EventStore.Api.Features.User.Register.Response.Id"/></param>
             <param name="userName"><see cref="P:EventStore.Api.Features.User.Register.Response.UserName"/></param>
-            <param name="token"><see cref="P:EventStore.Api.Features.User.Register.Response.Token"/></param>
             <param name="firstName"><see cref="P:EventStore.Api.Features.User.Register.Response.FirstName"/></param>
             <param name="lastName"><see cref="P:EventStore.Api.Features.User.Register.Response.LastName"/></param>
         </member>
-        <member name="M:EventStore.Api.Features.User.Register.Response.Create(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:EventStore.Api.Features.User.Register.Response.Create(System.String,System.String,System.String,System.String)">
             <summary>
             Create a new instance of <see cref="T:EventStore.Api.Features.User.Register.Response"/>
             </summary>
             <param name="id"></param>
-            <param name="token"></param>
             <param name="userName"></param>
             <param name="firstName"></param>
             <param name="lastName"></param>
@@ -116,6 +169,32 @@
             </summary>
             <param name="request">Request to register user</param>
             <param name="cancellationToken">When cancellation is requested</param>
+            <returns></returns>
+        </member>
+        <member name="M:EventStore.Api.Features.User.UsersController.Authenticate(EventStore.Api.Features.User.Authenticate.Request,System.Threading.CancellationToken)">
+            <summary>
+            Authenticate user on the EventStore Api
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EventStore.Api.Program">
+            <summary>
+            Bootstrap class
+            </summary>
+        </member>
+        <member name="M:EventStore.Api.Program.Main(System.String[])">
+            <summary>
+            Main method called by framework
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:EventStore.Api.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Bootstrap the application
+            </summary>
+            <param name="args"></param>
             <returns></returns>
         </member>
         <member name="T:EventStore.Api.Seedwork.DbContextFactory">
@@ -158,12 +237,37 @@
             </summary>
             <param name="mediator"></param>
         </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorScope.PublishAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            Publish a notificationB
+            </summary>
+            <param name="notification"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="M:EventStore.Api.Seedwork.MediatorScope.PublishAsync``1(``0,System.Threading.CancellationToken)">
             <summary>
-            
+            Publish a typed notification
             </summary>
             <typeparam name="TNotification"></typeparam>
             <param name="notification"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorScope.SendAsync``1(MediatR.IRequest{``0},System.Threading.CancellationToken)">
+            <summary>
+            Send a request which expects a typed response back
+            </summary>
+            <typeparam name="TResponse"></typeparam>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EventStore.Api.Seedwork.MediatorScope.SendAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            Send a request which returns an unknown type (object)
+            </summary>
+            <param name="request"></param>
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
@@ -247,6 +351,12 @@
         <member name="M:EventStore.Api.Startup.LoadMediator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:EventStore.Api.Startup.LoadSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Load swagger settings
             </summary>
             <param name="services"></param>
         </member>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EventStore.Application.Features.User.Authenticate;
 using EventStore.Application.Features.User.Register;
 using EventStore.Application.Mediator;
+using EventStore.Infrastructure.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,7 +38,7 @@ namespace EventStore.Api.Features.User
         /// <param name="cancellationToken">When cancellation is requested</param>
         /// <returns></returns>
         [HttpPost("register")]
-        public async Task<ObjectResult> Register([FromBody, SwaggerRequestBody("Request to register user", Required = true)] Register.Request request, CancellationToken cancellationToken)
+        public async Task<ObjectResult> Register([FromBody] Register.Request request, CancellationToken cancellationToken)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace EventStore.Api.Features.User
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("authenticate")]
-        public async Task<ObjectResult> Authenticate([FromBody, SwaggerRequestBody("Request to authenticate user", Required = true)] Authenticate.Request request, CancellationToken cancellationToken)
+        public async Task<ObjectResult> Authenticate([FromBody] Authenticate.Request request, CancellationToken cancellationToken)
         {
             try
             {
@@ -75,19 +76,25 @@ namespace EventStore.Api.Features.User
             }
             catch (KeyNotFoundException knfe)
             {
-                //We do not want to give info the external users if a user is present on our platform or not. However, we do want to know as IT if someone attempts to find out if a user is on this platform
+                //We do not want to give info if a user is present on our platform or not. However, we do want to know as IT if someone attempts to find out if a user is on this platform
                 //TODO: Add tracing here - User account was not found
-                return new BadRequestObjectResult(new {ErrorCode = "SOMECODE", ErrorMessage = "Could not authenticate the given user."});
+                //_telemetryClient.TraceEvent($"{nameof(Authentication)}FailedEvent", new { Code = ErrorMessages.ErrorUserNotFound, Exception = knfe, Message = knfe.Message });
+                Console.WriteLine(knfe);
+                return new BadRequestObjectResult(new {ErrorCode = ErrorMessages.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user."});
             }
             catch (InvalidCredentialException ice)
             {
                 //TODO: Add tracing here - Incorrect credentials (if this happens too often for 1 given account someone is bruteforcing their way in)
-                return new BadRequestObjectResult(new { ErrorCode = "SOMECODE", ErrorMessage = "Could not authenticate the given user." });
+                //_telemetryClient.TraceEvent($"{nameof(Authentication)}FailedEvent", new { Code = ErrorMessages.ErrorUserInvalidPassword, Exception = ice, Message = ice.Message });
+                Console.WriteLine(ice);
+                return new BadRequestObjectResult(new { ErrorCode = ErrorMessages.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user." });
             }
             catch (Exception ex)
             {
                 //TODO: Add tracing here - Something else went wrong but we don't know what
-                return new BadRequestObjectResult(new { ErrorCode = "SOMECODE", ErrorMessage = "Could not authenticate the given user." });
+                //_telemetryClient.TraceEvent($"{nameof(Authentication)}FailedEvent", new { Code = ErrorMessages.ErrorUserNotAuthenticated, Exception = ex, Message = ex.Message });
+                Console.WriteLine(ex);
+                return new BadRequestObjectResult(new { ErrorCode = ErrorMessages.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user." });
             }
         }
     }
