@@ -4,9 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventStore.Application.Features.User.Password;
 using EventStore.Application.Mediator;
-using EventStore.Application.Repositories;
 using EventStore.Application.Repositories.User;
-using EventStore.Core.Domains.User;
 using MediatR;
 
 namespace EventStore.Application.Features.User.Authenticate

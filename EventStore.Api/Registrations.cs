@@ -9,6 +9,7 @@ using EventStore.Infrastructure.Persistence.Entities;
 using EventStore.Infrastructure.Persistence.Factories;
 using EventStore.Infrastructure.Persistence.Repositories;
 using EventStore.Infrastructure.Persistence.Repositories.User;
+using EventStore.Services;
 using MediatR.Extensions.Autofac.DependencyInjection;
 
 namespace EventStore.Api
@@ -53,7 +54,7 @@ namespace EventStore.Api
 
         private void RegisterServices(ref ContainerBuilder builder)
         {
-            
+            builder.RegisterType<SecurityService>().AsImplementedInterfaces();
         }
     }
 }
