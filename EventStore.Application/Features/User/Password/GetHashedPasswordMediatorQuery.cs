@@ -7,7 +7,7 @@ namespace EventStore.Application.Features.User.Password
         /// <summary>
         /// Original password entered by the user in the application
         /// </summary>
-        public string Password { get; set; }
+        public string Password { get; private set; }
 
         //TODO: Rework default constructor - for now it's use only used for unit tests
         public GetHashedPasswordMediatorQuery() { }

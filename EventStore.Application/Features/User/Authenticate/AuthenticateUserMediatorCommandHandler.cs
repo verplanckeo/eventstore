@@ -41,7 +41,7 @@ namespace EventStore.Application.Features.User.Authenticate
 
             if (!passwordResult.IsValid) throw new InvalidCredentialException($"User with username {request.UserName} entered an invalid password");
 
-            return AuthenticateUserMediatorCommandResponse.CreateResponse(readUser.AggregateRootId, "api-token"); //todo - make this a legit jwt token
+            return AuthenticateUserMediatorCommandResponse.CreateResponse(readUser.AggregateRootId, "api-token"); //TODO - make this a legit jwt token
         }
     }
 }

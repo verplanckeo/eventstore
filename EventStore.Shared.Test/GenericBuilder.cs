@@ -19,10 +19,16 @@ namespace EventStore.Shared.Test
             return this;
         }
 
+        public GenericBuilder<T> SetDefaults(Func<T> func)
+        {
+            Item = func();
+            return this;
+        }
+
         public IBuilder<T> With<TProp>(Expression<Func<T, TProp>> expression, TProp value)
         {
-            var prop = typeof(T).GetProperty(((MemberExpression) expression.Body).Member.Name, BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.SetProperty);
-            prop.SetValue(Item, value);
+            var prop = typeof(T).GetProperty(((MemberExpression) expression.Body).Member.Name, BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.SetProperty);
+            prop.SetValue(Item, value, null);
 
             return this;
         }

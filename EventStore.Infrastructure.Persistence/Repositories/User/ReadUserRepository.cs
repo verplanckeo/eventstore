@@ -25,10 +25,7 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
             var existingRecord = await LoadUserByAggregateRootIdAsync(readUser.AggregateRootId, cancellationToken);
             if (existingRecord != null)
             {
-                existingRecord.FirstName = readUser.FirstName;
-                existingRecord.LastName = readUser.LastName;
-                existingRecord.UserName = readUser.UserName;
-                existingRecord.Version++;
+                existingRecord.ChangeUserModel(readUser);
                 await _databaseContext.SaveChangesAsync(cancellationToken);
                 return readUser.AggregateRootId;
             }
@@ -41,7 +38,7 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
                     FirstName = readUser.FirstName,
                     LastName = readUser.LastName,
                     UserName = readUser.UserName,
-                    Version = ++readUser.Version
+                    Version = readUser.Version + 1
                 };
 
                 await _databaseContext.ReadUsers.AddAsync(record, cancellationToken);

@@ -5,7 +5,7 @@
         /// <summary>
         /// Is password valid
         /// </summary>
-        public bool IsValid { get; set; }
+        public bool IsValid { get; private set; }
 
         /// <summary>
         /// CTor

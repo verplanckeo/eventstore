@@ -16,7 +16,7 @@ namespace EventStore.Application.Test.Features.User.Password
         public void Initialize()
         {
             _sut = new GetHashedPasswordMediatorQueryValidator();
-            _builder = new PasswordMediatorQueryBuilder();
+            _builder = new GetHashedPasswordMediatorQueryBuilder();
         }
 
         [TestMethod]

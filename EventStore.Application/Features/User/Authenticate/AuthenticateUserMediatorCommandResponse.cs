@@ -8,12 +8,15 @@
         /// <summary>
         /// Identifier of the user
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; private set; }
 
         /// <summary>
         /// Access Token
         /// </summary>
-        public string Token { get; set; } //todo - make all properties get only, for now they are set as well for unit tests.
+        public string Token { get; private set; }
+
+        //TODO: Rework default constructor - for now it's use only used for unit tests
+        public AuthenticateUserMediatorCommandResponse() { }
 
         /// <summary>
         /// CTor

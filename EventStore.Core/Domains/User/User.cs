@@ -15,7 +15,11 @@ namespace EventStore.Core.Domains.User
         public Password Password { get; private set; }
         public Address UserAddress { get; private set; }
 
-        private User() { }
+        //TODO: Rework default constructor - for now it's only used for unit test
+        /// <summary>
+        /// DO NOT USE THIS CTOR!
+        /// </summary>
+        public User() { }
 
         /// <summary>
         /// When an aggregate has been fetched from db, we call this CTor which will apply all events and increase the Version by 1

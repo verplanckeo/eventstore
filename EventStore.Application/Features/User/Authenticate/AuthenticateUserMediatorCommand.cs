@@ -7,9 +7,9 @@ namespace EventStore.Application.Features.User.Authenticate
     /// </summary>
     public class AuthenticateUserMediatorCommand : IRequest<AuthenticateUserMediatorCommandResponse>
     {
-        public string UserName { get; set; }
+        public string UserName { get; private set; }
 
-        public string Password { get; set; }
+        public string Password { get; private set; }
 
         //TODO: Rework default constructor - for now it's use only used for unit tests
         public AuthenticateUserMediatorCommand() { }

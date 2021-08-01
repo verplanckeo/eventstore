@@ -9,11 +9,6 @@ namespace EventStore.Application.Features.User.Password
 {
     public class ValidateHashedPasswordMediatorQueryHandler : IRequestHandler<ValidateHashedPasswordMediatorQuery, ValidateHashedPasswordMediatorQueryResult>
     {
-        public ValidateHashedPasswordMediatorQueryHandler()
-        {
-            
-        }
-
         public Task<ValidateHashedPasswordMediatorQueryResult> Handle(ValidateHashedPasswordMediatorQuery request, CancellationToken cancellationToken)
         {
             //TODO: This is copy paste from the GetHashed handler so we can move this into a service

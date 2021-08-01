@@ -8,12 +8,12 @@
         /// <summary>
         /// Hashed password
         /// </summary>
-        public string HashedPassword { get; set; }
+        public string HashedPassword { get; private set; }
 
         /// <summary>
         /// Salt used to hash the password
         /// </summary>
-        public string Salt { get; set; }
+        public string Salt { get; private set; }
 
         /// <summary>
         /// CTor
