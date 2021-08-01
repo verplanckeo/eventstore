@@ -24,3 +24,8 @@ Should you have any questions or you wish to discuss certain topics, don't hesit
 + Run npm start
 + Browse to: http://localhost:4200 to see the application
 
+## Run the app without api backend
++ Edit app.module.ts (uncomment FakeBackendProvider)
++ Run npm install
++ Run npm start
++ Browse to: http://localhost:4200 to see the application
