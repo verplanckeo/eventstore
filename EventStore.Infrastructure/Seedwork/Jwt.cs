@@ -14,5 +14,10 @@
         /// Issuer: Under 'whose' name the token is signed
         /// </summary>
         public string Issuer { get; set; }
+
+        /// <summary>
+        /// Once issued, token is valid for x minutes
+        /// </summary>
+        public int ValidFor { get; set; }
     }
 }

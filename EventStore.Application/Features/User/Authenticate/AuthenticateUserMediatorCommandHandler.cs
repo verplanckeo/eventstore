@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EventStore.Application.Features.User.Password;
 using EventStore.Application.Mediator;
 using EventStore.Application.Repositories.User;
+using EventStore.Application.Services;
 using MediatR;
 
 namespace EventStore.Application.Features.User.Authenticate
@@ -13,13 +14,17 @@ namespace EventStore.Application.Features.User.Authenticate
     {
         private readonly IReadUserRepository _readUserRepository;
         private readonly IUserRepository _userRepository;
+
         private readonly IMediatorFactory _mediatorFactory;
 
-        public AuthenticateUserMediatorCommandHandler(IReadUserRepository readUserRepository, IUserRepository userRepository, IMediatorFactory mediatorFactory)
+        private readonly ISecurityService _securityService;
+
+        public AuthenticateUserMediatorCommandHandler(IReadUserRepository readUserRepository, IUserRepository userRepository, IMediatorFactory mediatorFactory, ISecurityService securityService)
         {
             _readUserRepository = readUserRepository;
             _userRepository = userRepository;
             _mediatorFactory = mediatorFactory;
+            _securityService = securityService;
         }
 
         public async Task<AuthenticateUserMediatorCommandResponse> Handle(AuthenticateUserMediatorCommand request, CancellationToken cancellationToken)
@@ -38,8 +43,9 @@ namespace EventStore.Application.Features.User.Authenticate
                 cancellationToken);
 
             if (!passwordResult.IsValid) throw new InvalidCredentialException($"User with username {request.UserName} entered an invalid password");
+            var jwtToken = await _securityService.GenerateJsonWebToken(user, cancellationToken);
 
-            return AuthenticateUserMediatorCommandResponse.CreateResponse(readUser.AggregateRootId, "api-token"); //TODO - make this a legit jwt token
+            return AuthenticateUserMediatorCommandResponse.CreateResponse(readUser.AggregateRootId, jwtToken);
         }
     }
 }

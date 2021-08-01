@@ -6,6 +6,7 @@ using EventStore.Application.Features.User.Authenticate;
 using EventStore.Application.Features.User.Password;
 using EventStore.Application.Mediator;
 using EventStore.Application.Repositories.User;
+using EventStore.Application.Services;
 using EventStore.Application.Test.Builders;
 using EventStore.Shared.Test;
 using FakeItEasy;
@@ -19,6 +20,7 @@ namespace EventStore.Application.Test.Features.User.Authenticate
         private IReadUserRepository _readUserRepository;
         private IUserRepository _userRepository;
         private IMediatorFactory _mediatorFactory;
+        private ISecurityService _securityService;
 
         private IBuilder<AuthenticateUserMediatorCommand> _authenticateUserMediatorCommandBuilder;
         private IBuilder<AuthenticateUserMediatorCommandResponse> _authenticateUserMediatorCommandResponseBuilder;
@@ -35,6 +37,7 @@ namespace EventStore.Application.Test.Features.User.Authenticate
             _readUserRepository = A.Fake<IReadUserRepository>();
             _userRepository = A.Fake<IUserRepository>();
             _mediatorFactory = A.Fake<IMediatorFactory>();
+            _securityService = A.Fake<ISecurityService>();
 
             _authenticateUserMediatorCommandBuilder = new AuthenticateUserMediatorCommandBuilder();
             _authenticateUserMediatorCommandResponseBuilder = new AuthenticateUserMediatorCommandResponseBuilder();
@@ -43,7 +46,7 @@ namespace EventStore.Application.Test.Features.User.Authenticate
             _domainUserBuilder = new DomainUserBuilder();
             _readUserModelBuilder = new ReadUserModelBuilder();
 
-            _sut = new AuthenticateUserMediatorCommandHandler(_readUserRepository, _userRepository, _mediatorFactory);
+            _sut = new AuthenticateUserMediatorCommandHandler(_readUserRepository, _userRepository, _mediatorFactory, _securityService);
         }
 
         [TestMethod]
@@ -52,7 +55,7 @@ namespace EventStore.Application.Test.Features.User.Authenticate
             // Arrange
             var request = _authenticateUserMediatorCommandBuilder.Build();
 
-            var validateRequest = _validateHashedPasswordMediatorQueryBuilder.Build();
+            var token = "unittest-jwt-token";
             var validateResult = _validateHashedPasswordMediatorQueryResultBuilder.Build();
             var domainUser = _domainUserBuilder.Build();
             var readUserModel = _readUserModelBuilder.Build();
@@ -63,6 +66,7 @@ namespace EventStore.Application.Test.Features.User.Authenticate
             A.CallTo(() => _readUserRepository.LoadUserByUserNameAsync(request.UserName, default)).Returns(Task.FromResult(readUserModel));
             A.CallTo(() => _userRepository.LoadUserAsync(readUserModel.AggregateRootId, default)).Returns(Task.FromResult(domainUser));
             A.CallTo(() => fakeScope.SendAsync(A<ValidateHashedPasswordMediatorQuery>.Ignored, default)).Returns(Task.FromResult(validateResult));
+            A.CallTo(() => _securityService.GenerateJsonWebToken(A<Core.Domains.User.User>.Ignored, default)).Returns(Task.FromResult(token));
 
             // Act
             var result = await _sut.Handle(request, default);
@@ -70,7 +74,7 @@ namespace EventStore.Application.Test.Features.User.Authenticate
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(readUserModel.AggregateRootId, result.Id);
-            Assert.AreEqual("api-token", result.Token); //todo- this needs to be
+            Assert.AreEqual(token, result.Token); //todo- this needs to be
         }
 
         [TestMethod]
