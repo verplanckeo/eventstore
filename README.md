@@ -13,7 +13,7 @@ Should you have any questions or you wish to discuss certain topics, don't hesit
 ## To add migrations:
 + Open console in Visual Studio (NuGet package manager console)
 + Set default project to: EventStore.Infrastructure.Persistence
-+ Execute following command: Add-Migration NameOfMigration -StartupProject EventStore -Context RealDbContext
++ Execute following command: Add-Migration NameOfMigration -StartupProject EventStore.Api -Context RealDbContext
 
 ## To remove last migration:
 + Set default project to: EventStore.Infrastructure.Persistence
