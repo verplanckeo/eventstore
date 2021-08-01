@@ -12,6 +12,7 @@ namespace EventStore.Api
         public void LoadConfiguration(IServiceCollection services)
         {
             services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
+            services.Configure<Jwt>(Configuration.GetSection(nameof(Jwt)));
         }
     }
 }

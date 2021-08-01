@@ -15,8 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventStore.Application\EventStore.Application.csproj" />
-    <ProjectReference Include="..\EventStore.Core\EventStore.Core.csproj" />
-    <ProjectReference Include="..\EventStore.Shared.Test\EventStore.Shared.Test.csproj" />
+    <ProjectReference Include="..\EventStore.Infrastructure\EventStore.Infrastructure.csproj" />
+    <ProjectReference Include="..\EventStore.Services\EventStore.Services.csproj" />
   </ItemGroup>
 
 </Project>

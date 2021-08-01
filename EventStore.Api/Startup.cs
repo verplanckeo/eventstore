@@ -46,13 +46,6 @@ namespace EventStore.Api
             services.AddHttpContextAccessor();
             services.AddResponseCaching();
 
-            services.AddMvc(options =>
-                {
-                    // order does matter - add custom filters 
-                    //options.Filters.Add<TypeOfFilter>();
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Latest);
-
             //Load options pattern configuration
             LoadConfiguration(services);
 
@@ -61,6 +54,16 @@ namespace EventStore.Api
 
             //Load swagger configuration
             LoadSwagger(services);
+
+            //Load authentication configuration
+            LoadAuthentication(services);
+
+            services.AddMvc(options =>
+                {
+                    // order does matter - add custom filters 
+                    //options.Filters.Add<TypeOfFilter>();
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
         /// <summary>
