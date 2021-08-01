@@ -63,10 +63,18 @@ namespace EventStore.Infrastructure.Persistence.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Version")
                         .HasColumnType("int");
 
                     b.HasKey("AggregateRootId");
+
+                    b.HasIndex(new[] { "UserName" }, "IX_Username")
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL")
+                        .IncludeProperties(new[] { "FirstName", "LastName" });
 
                     b.ToTable("User", "read");
                 });

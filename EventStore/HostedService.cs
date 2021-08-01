@@ -46,13 +46,13 @@ namespace EventStore
             _logger.LogInformation($"Migration done ...");
 
 
-            _logger.LogInformation($"Registering new user ...");
+            //_logger.LogInformation($"Registering new user ...");
 
-            var scope = _mediatorFactory.CreateScope();
-            var result = await scope.SendAsync(RegisterUserMediatorCommand.CreateCommand("", "Olivier", "Verplancke", "demo"), cancellationToken);
+            //var scope = _mediatorFactory.CreateScope();
+            //var result = await scope.SendAsync(RegisterUserMediatorCommand.CreateCommand("", "Olivier", "Verplancke", "demo"), cancellationToken);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation($"User was registered with Id: {result.Id}");
+            //_logger.LogInformation($"User was registered with Id: {result.Id}");
         }
 
 

@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using EventStore.Application.Features.User.Register;
 using EventStore.Application.Features.User.UpdateReadUser;
 using EventStore.Application.Mediator;
 using EventStore.Application.Repositories.User;
+using EventStore.Core.Domains.User.DomainEvents;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -41,7 +43,17 @@ namespace EventStore.Application.Test.Features.User.Register
             A.CallTo(() =>
                 _repository.SaveUserAsync(A<Core.Domains.User.User>.That.Matches(u =>
                         u.FirstName == request.FirstName && u.LastName == request.LastName &&
-                        u.UserName == request.UserName && u.Password == request.Password), default)).MustHaveHappenedOnceExactly();
+                        u.UserName == request.UserName), default)).MustHaveHappenedOnceExactly();
+
+            A.CallTo(() =>
+                _repository.SaveUserAsync(A<Core.Domains.User.User>.That.Matches(u => u.DomainEvents.Count == 2), default))
+                .MustHaveHappenedOnceExactly();
+            A.CallTo(() =>
+                _repository.SaveUserAsync(A<Core.Domains.User.User>.That.Matches(u => u.DomainEvents.Any(evt => evt.GetType() == typeof(UserRegisteredDomainEvent))), default))
+                .MustHaveHappenedOnceExactly();
+            A.CallTo(() =>
+                _repository.SaveUserAsync(A<Core.Domains.User.User>.That.Matches(u => u.DomainEvents.Any(evt => evt.GetType() == typeof(PasswordChangedDomainEvent))), default))
+                .MustHaveHappenedOnceExactly();
 
             A.CallTo(() =>
                     fakeScope.SendAsync(A<UpdateReadUserCommand>.That.Matches(c =>

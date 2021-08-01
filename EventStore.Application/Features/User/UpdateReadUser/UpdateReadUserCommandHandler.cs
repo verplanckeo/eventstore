@@ -16,7 +16,7 @@ namespace EventStore.Application.Features.User.UpdateReadUser
 
         public async Task<Unit> Handle(UpdateReadUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await _repository.SaveOrUpdateUserAsync(ReadUserModel.CreateNewReadUser(request.AggregateRootId, request.FirstName, request.LastName, request.Version), cancellationToken);
+            var result = await _repository.SaveOrUpdateUserAsync(ReadUserModel.CreateNewReadUser(request.AggregateRootId, request.FirstName, request.LastName, request.UserName, request.Version), cancellationToken);
 
             if (string.IsNullOrEmpty(result))
             {

@@ -1,7 +1,10 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 
 namespace EventStore.Application.Features.User.Register
 {
+    //TODO: Abstragate Validator even more so the rest of the application is not aware of Fluent validation.
+    //      Right now we return FluentValidationResults but it should be a custom model specific to the application to avoid dependencies on this lib.
     public class RegisterUserMediatorCommandValidator : AbstractValidator<RegisterUserMediatorCommand>
     {
         public RegisterUserMediatorCommandValidator()   

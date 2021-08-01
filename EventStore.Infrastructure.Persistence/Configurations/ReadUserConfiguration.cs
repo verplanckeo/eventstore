@@ -11,6 +11,10 @@ namespace EventStore.Infrastructure.Persistence.Configurations
             builder.ToTable(Constants.Database.TableReadUser, Constants.Database.SchemaRead);
 
             builder.HasKey(key => new { key.AggregateRootId });
+
+            builder.HasIndex(model => new {model.UserName}, "IX_Username")
+                .IsUnique()
+                .IncludeProperties(model => new{ model.FirstName, model.LastName });
         }
     }
 }

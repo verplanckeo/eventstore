@@ -2,7 +2,7 @@
 {
     public class RegisterUserMediatorCommandResponse
     {
-        public string Id { get; set; }
+        public string Id { get; private set; }
 
         private RegisterUserMediatorCommandResponse(string id)
         {
