@@ -16,7 +16,7 @@
         public int Version { get; private set; }
 
 
-        //TODO: Rework default constructor - for now it's use only used for unit tests
+        //TODO: Rework default constructor - for now it's only used for unit tests
         public ReadUserModel() { }
 
         private ReadUserModel(string aggregateRootId, string firstName, string lastName, string userName, int version)

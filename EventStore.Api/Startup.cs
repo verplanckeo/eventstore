@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace EventStore.Api
 {
@@ -33,7 +35,11 @@ namespace EventStore.Api
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(); 
+            services.AddControllers().AddNewtonsoftJson(o =>
+            {
+                //This converts enums in Swagger to use their string values instead of their numerical ones.
+                o.SerializerSettings.Converters.Add(new StringEnumConverter {NamingStrategy = new CamelCaseNamingStrategy()});
+            }); 
             
             services.AddLogging(builder =>
             {

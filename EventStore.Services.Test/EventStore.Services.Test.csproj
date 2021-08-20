@@ -17,6 +17,11 @@
     <ProjectReference Include="..\EventStore.Application\EventStore.Application.csproj" />
     <ProjectReference Include="..\EventStore.Infrastructure\EventStore.Infrastructure.csproj" />
     <ProjectReference Include="..\EventStore.Services\EventStore.Services.csproj" />
+    <ProjectReference Include="..\EventStore.Shared.Test\EventStore.Shared.Test.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Builders\" />
   </ItemGroup>
 
 </Project>

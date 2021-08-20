@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using EventStore.Application.Mediator;
 using EventStore.Infrastructure.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace EventStore.Api.Features.User
 {
@@ -65,6 +67,9 @@ namespace EventStore.Api.Features.User
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("authenticate")]
+        [SwaggerRequestExample(typeof(Authenticate.Request), typeof(Authenticate.RequestExample))]
+        [SwaggerResponse(200, "Response after user has been successfully authenticated.", typeof(Authenticate.Response))]
+        [SwaggerResponseExample(200, typeof(Authenticate.ResponseExample))]
         public async Task<ObjectResult> Authenticate([FromBody] Authenticate.Request request, CancellationToken cancellationToken)
         {
             try
@@ -95,6 +100,24 @@ namespace EventStore.Api.Features.User
                 //_telemetryClient.TraceEvent($"{nameof(Authentication)}FailedEvent", new { Code = ErrorMessages.ErrorUserNotAuthenticated, Exception = ex, Message = ex.Message });
                 Console.WriteLine(ex);
                 return new BadRequestObjectResult(new { ErrorCode = ErrorMessages.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user." });
+            }
+        }
+
+        /// <summary>
+        /// Get all users active on the platform
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
+        {
+            try
+            {
+                throw new NotImplementedException("Started working on tickets - state pattern");
+            }
+            catch (Exception ex)
+            {
+                return new StatusCodeResult((int) HttpStatusCode.InternalServerError);
             }
         }
     }

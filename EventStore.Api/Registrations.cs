@@ -4,6 +4,7 @@ using EventStore.Api.Seedwork;
 using EventStore.Application.Mediator;
 using EventStore.Application.Repositories;
 using EventStore.Application.Repositories.User;
+using EventStore.Infrastructure.Http;
 using EventStore.Infrastructure.Persistence.Database;
 using EventStore.Infrastructure.Persistence.Entities;
 using EventStore.Infrastructure.Persistence.Factories;
@@ -22,6 +23,8 @@ namespace EventStore.Api
 
             RegisterMediator(ref builder);
 
+            RegisterInfrastructureHttp(ref builder);
+
             RegisterInfrastructurePersistence(ref builder);
 
             RegisterRepositories(ref builder);
@@ -36,6 +39,13 @@ namespace EventStore.Api
 
             builder.RegisterType<MediatorFactory>().As<IMediatorFactory>().InstancePerLifetimeScope();
             builder.RegisterType<MediatorScope>().As<IMediatorScope>().InstancePerLifetimeScope();
+        }
+
+        private void RegisterInfrastructureHttp(ref ContainerBuilder builder)
+        {
+            builder.RegisterType<EventStoreHttpContext>()
+                .AsImplementedInterfaces()
+                .InstancePerRequest();
         }
 
         private void RegisterInfrastructurePersistence(ref ContainerBuilder builder)

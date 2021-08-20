@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using EventStore.Infrastructure.Seedwork;
+using EventStore.Services.Test.Builders;
+using EventStore.Shared.Test;
+using FakeItEasy;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EventStore.Services.Test
@@ -9,10 +14,17 @@ namespace EventStore.Services.Test
     {
         private SecurityService _sut;
 
+        private IOptions<Jwt> _optionsJwt;
+
+        private IBuilder<Jwt> _jwtBuilder;
+
         [TestInitialize]
         public void Initialize()
         {
-            _sut = new SecurityService();
+            _optionsJwt = A.Fake<IOptions<Jwt>>();
+            _jwtBuilder = new JwtBuilder();
+
+            _sut = new SecurityService(_optionsJwt);
         }
 
         [TestMethod]
@@ -20,6 +32,9 @@ namespace EventStore.Services.Test
         {
             // Arrange
             var password = "securepassword";
+            var jwt = _jwtBuilder.Build();
+
+            A.CallTo(() => _optionsJwt.Value).Returns(jwt);
 
             // Act
             (string hashedPassword, string salt) result = await _sut.GenerateHashedPassword(password);
