@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using EventStore.Infrastructure.Persistence.Entities.Ticket;
 using EventStore.Infrastructure.Persistence.Entities.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,14 +16,19 @@ namespace EventStore.Infrastructure.Persistence.Entities
         Task<int> SaveChangesAsync(CancellationToken token = default);
         
         /// <summary>
-        /// Domain events stored in event store db
+        /// Domain events stored in event store db.
         /// </summary>
         DbSet<EventStoreRecord> EventStoreRecords { get; set; }
 
         /// <summary>
-        /// Get overview of users based on it's read model
+        /// Get overview of users based on it's read model.
         /// </summary>
         DbSet<ReadUser> ReadUsers { get; set; }
+
+        /// <summary>
+        /// Get overview of tickets based on it's read model.
+        /// </summary>
+        DbSet<ReadTicket> ReadTickets { get; set; }
 
 
     }

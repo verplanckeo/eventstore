@@ -86,6 +86,7 @@ namespace EventStore.Api
 
             app.UseRouting();
 
+            app.UseAuthentication(); //must add UseAuthentication before UseAuthorization, or else [Authorize] attribute doesn't work
             app.UseAuthorization();
 
             app.UseCors(c =>

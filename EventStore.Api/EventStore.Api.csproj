@@ -45,10 +45,5 @@
     <ProjectReference Include="..\EventStore.Services\EventStore.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Ticket\Option\" />
-    <Folder Include="Features\Ticket\Register\" />
-  </ItemGroup>
-
 
 </Project>

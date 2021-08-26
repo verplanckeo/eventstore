@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
+## Adding new module
+Adding a new module with routing. When in root of app (\eventstore\app)
+run `ng g module features/nameofmodule --routing`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

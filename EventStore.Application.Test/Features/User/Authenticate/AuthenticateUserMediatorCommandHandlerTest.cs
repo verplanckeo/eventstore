@@ -66,7 +66,7 @@ namespace EventStore.Application.Test.Features.User.Authenticate
             A.CallTo(() => _readUserRepository.LoadUserByUserNameAsync(request.UserName, default)).Returns(Task.FromResult(readUserModel));
             A.CallTo(() => _userRepository.LoadUserAsync(readUserModel.AggregateRootId, default)).Returns(Task.FromResult(domainUser));
             A.CallTo(() => fakeScope.SendAsync(A<ValidateHashedPasswordMediatorQuery>.Ignored, default)).Returns(Task.FromResult(validateResult));
-            A.CallTo(() => _securityService.GenerateJsonWebToken(A<Core.Domains.User.User>.Ignored, default)).Returns(Task.FromResult(token));
+            A.CallTo(() => _securityService.GenerateJsonWebTokenAsync(A<Core.Domains.User.User>.Ignored, default)).Returns(Task.FromResult(token));
 
             // Act
             var result = await _sut.Handle(request, default);

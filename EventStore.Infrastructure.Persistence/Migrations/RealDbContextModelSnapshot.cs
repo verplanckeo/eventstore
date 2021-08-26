@@ -52,6 +52,42 @@ namespace EventStore.Infrastructure.Persistence.Migrations
                     b.ToTable("EventStore", "write");
                 });
 
+            modelBuilder.Entity("EventStore.Infrastructure.Persistence.Entities.Ticket.ReadTicket", b =>
+                {
+                    b.Property<string>("AggregateRootId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("TicketPriority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketState")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.HasKey("AggregateRootId");
+
+                    b.HasIndex(new[] { "UserName" }, "IX_TicketUserName")
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL")
+                        .IncludeProperties(new[] { "UserId", "Title", "TicketPriority", "TicketState", "TicketType", "Version" });
+
+                    b.ToTable("Ticket", "read");
+                });
+
             modelBuilder.Entity("EventStore.Infrastructure.Persistence.Entities.User.ReadUser", b =>
                 {
                     b.Property<string>("AggregateRootId")

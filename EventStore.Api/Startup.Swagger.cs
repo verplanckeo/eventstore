@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -26,6 +27,25 @@ namespace EventStore.Api
                     Title = "EventStore Api", 
                     Version = "v1",
                     Contact = new OpenApiContact{ Email = "olivier@itigai.com" }
+                });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "please enter JWT with Bearer into field (i.e. 'Bearer eyJhbGciORestOfTokenValue')",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "Bearer"},
+                        },
+                        Array.Empty<string>()
+                    }
                 });
 
                 var xmlDocumentation = Path.Combine(AppContext.BaseDirectory, "EventStore.Api.xml");

@@ -11,9 +11,10 @@ namespace EventStore.Core.Domains.Ticket
         public override TicketId Id { get; protected set; }
         public TicketType TicketType { get; private set; }
         public TicketPriority TicketPriority { get; private set; }
-        public TicketStateMachineBase TicketStateMachine { get; private set; }
+        public TicketStateMachineBase TicketState { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; }
+        public User User { get; private set; }
 
         //TODO: Rework default constructor - it is only used for unit tests
         /// <summary>
@@ -28,20 +29,30 @@ namespace EventStore.Core.Domains.Ticket
         /// <param name="events"></param>
         public Ticket(IEnumerable<IDomainEvent> events): base(events){ }
 
-        public static Ticket CreateNewTicket(string title, string description, TicketType ticketType, TicketPriority ticketPriority)
+        public static Ticket CreateNewTicket(string title, string description, TicketType ticketType, TicketPriority ticketPriority, User user)
         {
             var ticket = new Ticket();
-            ticket.Apply(new TicketRegisteredDomainEvent(new TicketId().ToString(), title, description, ticketType, ticketPriority));
+            ticket.Apply(new TicketRegisteredDomainEvent(new TicketId().ToString(), title, description, ticketType, Option.TicketState.New, ticketPriority, user));
 
             return ticket;
         }
+
         //When changing the state of our ticket, this is what the external classes are calling
+        /// <summary>
+        /// Change state of our ticket to the given state.
+        /// </summary>
+        /// <param name="newState"></param>
         public void ChangeTicketState(TicketState newState)
         {
-            TicketStateMachine.ChangeState(this, TicketStateMachineBase.GetTicketState(newState));
+            TicketState.ChangeState(this, TicketStateMachineBase.GetTicketState(newState));
         }
 
         //This is the 'callback' method called from within our ticket state machine.
+        /// <summary>
+        /// Transition state of our ticket after it passed through our state machine.
+        /// Use 'ChangeTicketState' method to properly transition between states.
+        /// </summary>
+        /// <param name="newState"></param>
         internal void TransitionToState(TicketStateMachineBase newState)
         {
             Apply(new TicketStateChangedDomainEvent(newState));
@@ -55,12 +66,14 @@ namespace EventStore.Core.Domains.Ticket
             Title = evt.Title;
             Description = evt.Description;
             TicketType = evt.TicketType;
+            TicketState = TicketStateMachineBase.GetTicketState(evt.TicketState);
             TicketPriority = evt.TicketPriority;
+            User = evt.User;
         }
 
         public void On(TicketStateChangedDomainEvent evt)
         {
-            TicketStateMachine = TicketStateMachineBase.GetTicketState(evt.State);
+            TicketState = TicketStateMachineBase.GetTicketState(evt.State);
         }
     }
 }

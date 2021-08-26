@@ -43,7 +43,7 @@ namespace EventStore.Application.Features.User.Authenticate
                 cancellationToken);
 
             if (!passwordResult.IsValid) throw new InvalidCredentialException($"User with username {request.UserName} entered an invalid password");
-            var jwtToken = await _securityService.GenerateJsonWebToken(user, cancellationToken);
+            var jwtToken = await _securityService.GenerateJsonWebTokenAsync(user, cancellationToken);
 
             return AuthenticateUserMediatorCommandResponse.CreateResponse(readUser.AggregateRootId, jwtToken);
         }

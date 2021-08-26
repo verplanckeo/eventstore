@@ -1,8 +1,12 @@
-﻿namespace EventStore.Api.Features.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace EventStore.Api.Features.Ticket.Models
 {
     /// <summary>
     /// Priority for a given ticket (i.e. Critical)
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TicketPriority
     {
         /// <summary>

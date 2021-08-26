@@ -1,8 +1,12 @@
-﻿namespace EventStore.Api.Features.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace EventStore.Api.Features.Ticket.Models
 {
     /// <summary>
     /// State of ticket (i.e. Closed).
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TicketState
     {
         /// <summary>
@@ -24,6 +28,14 @@
         /// <summary>
         /// State when it has been decided the ticket won't be handled.
         /// </summary>
-        Closed = 4
+        Closed = 4,
+        /// <summary>
+        /// State when a ticket has been removed.
+        /// </summary>
+        Removed = 5,
+        /// <summary>
+        /// State when a ticket has been reopened after being closed.
+        /// </summary>
+        Reopened = 6
     }
 }

@@ -30,10 +30,6 @@ namespace EventStore.Application.Test.Features.Ticket.Option
             // Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(result.States.Contains(TicketState.New.ToString()));
-            Assert.IsTrue(result.States.Contains(TicketState.InProgress.ToString()));
-            Assert.IsTrue(result.States.Contains(TicketState.Resolved.ToString()));
-            Assert.IsTrue(result.States.Contains(TicketState.Done.ToString()));
-            Assert.IsTrue(result.States.Contains(TicketState.Closed.ToString()));
         }
     }
 }

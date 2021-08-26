@@ -13,6 +13,7 @@
     <ProjectReference Include="..\EventStore.Application\EventStore.Application.csproj" />
     <ProjectReference Include="..\EventStore.Core\EventStore.Core.csproj" />
     <ProjectReference Include="..\EventStore.Infrastructure.Persistence\EventStore.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\EventStore.Infrastructure\EventStore.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

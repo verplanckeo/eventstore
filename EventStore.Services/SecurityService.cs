@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,7 +25,7 @@ namespace EventStore.Services
             _jwt = jwt.Value;
         }
 
-        public Task<string> GenerateJsonWebToken(User user, CancellationToken cancellationToken)
+        public Task<string> GenerateJsonWebTokenAsync(User user, CancellationToken cancellationToken)
         {
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
             var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
@@ -32,7 +33,7 @@ namespace EventStore.Services
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Name, $"{user.UserName}")
+                new Claim(Infrastructure.Constants.Security.Claims.Name, $"{user.UserName}")
             };
 
             var token = new JwtSecurityToken(
@@ -43,6 +44,40 @@ namespace EventStore.Services
                 signingCredentials: credentials);
 
             return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
+        }
+
+        public Task<bool> IsJsonWebTokenValidAsync(string token, CancellationToken cancellationToken)
+        {
+            var validAudiences = new[] {_jwt.Issuer};
+            var validIssuer = new[] {_jwt.Issuer};
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidAudiences = validAudiences,
+                ValidIssuers = validIssuer,
+                IssuerSigningKey = signingKey
+            };
+
+            var tokenValidator = new JwtSecurityTokenHandler();
+            var claimsPrincipal = tokenValidator.ValidateToken(token, validationParameters, out var securityToken);
+
+            return Task.FromResult(claimsPrincipal.Identity.IsAuthenticated && AreClaimsValid(claimsPrincipal));
+        }
+
+        //Empty method for now, in the future we can add scopes and roles to the verification process.
+        private bool AreClaimsValid(ClaimsPrincipal principal)
+        {
+            foreach (var claim in principal.Claims)
+            {
+                switch (claim.Type)
+                {
+                    // todo verify claims
+                    default:
+                        break;
+                }
+            }
+
+            return true;
         }
 
         public async Task<(string hashedPassword, string salt)> GenerateHashedPassword(string password)

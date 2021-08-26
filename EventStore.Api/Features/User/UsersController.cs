@@ -40,7 +40,10 @@ namespace EventStore.Api.Features.User
         /// <param name="cancellationToken">When cancellation is requested</param>
         /// <returns></returns>
         [HttpPost("register")]
-        public async Task<ObjectResult> Register([FromBody] Register.Request request, CancellationToken cancellationToken)
+        [SwaggerRequestExample(typeof(Register.Request), typeof(Register.RequestExample))]
+        [ProducesResponseType(typeof(Register.Response), (int)HttpStatusCode.OK)]
+        [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(Register.ResponseExample))]
+        public async Task<ObjectResult> Register(Register.Request request, CancellationToken cancellationToken)
         {
             try
             {
@@ -63,14 +66,14 @@ namespace EventStore.Api.Features.User
         /// <summary>
         /// Authenticate user on the EventStore Api
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="request">Parameters to authenticate user.</param>
+        /// <param name="cancellationToken">CancellationToken.</param>
         /// <returns></returns>
         [HttpPost("authenticate")]
         [SwaggerRequestExample(typeof(Authenticate.Request), typeof(Authenticate.RequestExample))]
-        [SwaggerResponse(200, "Response after user has been successfully authenticated.", typeof(Authenticate.Response))]
-        [SwaggerResponseExample(200, typeof(Authenticate.ResponseExample))]
-        public async Task<ObjectResult> Authenticate([FromBody] Authenticate.Request request, CancellationToken cancellationToken)
+        [ProducesResponseType(typeof(Authenticate.Response), (int) HttpStatusCode.OK)]
+        [SwaggerResponseExample((int) HttpStatusCode.OK, typeof(Authenticate.ResponseExample))]
+        public async Task<ObjectResult> Authenticate(Authenticate.Request request, CancellationToken cancellationToken)
         {
             try
             {
@@ -85,40 +88,37 @@ namespace EventStore.Api.Features.User
                 //TODO: Add tracing here - User account was not found
                 //_telemetryClient.TraceEvent($"{nameof(Authentication)}FailedEvent", new { Code = ErrorMessages.ErrorUserNotFound, Exception = knfe, Message = knfe.Message });
                 Console.WriteLine(knfe);
-                return new BadRequestObjectResult(new {ErrorCode = ErrorMessages.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user."});
+                return new BadRequestObjectResult(new {ErrorCode = ErrorMessages.User.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user."});
             }
             catch (InvalidCredentialException ice)
             {
                 //TODO: Add tracing here - Incorrect credentials (if this happens too often for 1 given account someone is bruteforcing their way in)
                 //_telemetryClient.TraceEvent($"{nameof(Authentication)}FailedEvent", new { Code = ErrorMessages.ErrorUserInvalidPassword, Exception = ice, Message = ice.Message });
                 Console.WriteLine(ice);
-                return new BadRequestObjectResult(new { ErrorCode = ErrorMessages.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user." });
+                return new BadRequestObjectResult(new { ErrorCode = ErrorMessages.User.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user." });
             }
             catch (Exception ex)
             {
                 //TODO: Add tracing here - Something else went wrong but we don't know what
                 //_telemetryClient.TraceEvent($"{nameof(Authentication)}FailedEvent", new { Code = ErrorMessages.ErrorUserNotAuthenticated, Exception = ex, Message = ex.Message });
                 Console.WriteLine(ex);
-                return new BadRequestObjectResult(new { ErrorCode = ErrorMessages.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user." });
+                return new BadRequestObjectResult(new { ErrorCode = ErrorMessages.User.ErrorUserNotAuthenticated, ErrorMessage = "Could not authenticate the given user." });
             }
         }
 
         /// <summary>
         /// Get all users active on the platform
         /// </summary>
+        /// <param name="request"><see cref="LoadAllUsers.Request"/></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
+        [SwaggerRequestExample(typeof(LoadAllUsers.Request), typeof(LoadAllUsers.RequestExample))]
+        [ProducesResponseType(typeof(LoadAllUsers.Response), (int)HttpStatusCode.OK)]
+        [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(LoadAllUsers.ResponseExample))]
+        public Task<IActionResult> GetUsers(LoadAllUsers.Request request, CancellationToken cancellationToken)
         {
-            try
-            {
-                throw new NotImplementedException("Started working on tickets - state pattern");
-            }
-            catch (Exception ex)
-            {
-                return new StatusCodeResult((int) HttpStatusCode.InternalServerError);
-            }
+            throw new NotImplementedException("Started working on tickets - state pattern");
         }
     }
 }

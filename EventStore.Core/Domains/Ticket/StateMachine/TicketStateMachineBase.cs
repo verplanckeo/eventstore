@@ -29,25 +29,17 @@ namespace EventStore.Core.Domains.Ticket.StateMachine
 
         public static TicketStateMachineBase GetTicketState(TicketState state)
         {
-            switch (state)
+            return state switch
             {
-                case TicketState.New:
-                    return new NewTicketState();
-                case TicketState.InProgress:
-                    return new InProgressTicketState();
-                case TicketState.Resolved:
-                    return new ResolvedTicketState();
-                case TicketState.Done:
-                    return new DoneTicketState();
-                case TicketState.Closed:
-                    return new ClosedTicketState();
-                case TicketState.Removed:
-                    return new RemovedTicketState();
-                case TicketState.Reopen:
-                    return new ReopenTicketState();
-                default:
-                    return new NewTicketState();
-            }
+                TicketState.New => new NewTicketState(),
+                TicketState.InProgress => new InProgressTicketState(),
+                TicketState.Resolved => new ResolvedTicketState(),
+                TicketState.Done => new DoneTicketState(),
+                TicketState.Closed => new ClosedTicketState(),
+                TicketState.Removed => new RemovedTicketState(),
+                TicketState.Reopen => new ReopenTicketState(),
+                _ => new NewTicketState()
+            };
         }
     }
 }

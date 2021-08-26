@@ -17,4 +17,8 @@
     <ProjectReference Include="..\EventStore.Core\EventStore.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domains\Ticket\" />
+  </ItemGroup>
+
 </Project>

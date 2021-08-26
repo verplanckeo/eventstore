@@ -1,4 +1,4 @@
-﻿using EventStore.Api.Features.Models;
+﻿using EventStore.Api.Features.Ticket.Models;
 
 namespace EventStore.Api.Features.Ticket.Register
 {
@@ -40,6 +40,19 @@ namespace EventStore.Api.Features.Ticket.Register
             Description = description;
             TicketType = ticketType;
             TicketPriority = ticketPriority;
+        }
+
+        /// <summary>
+        /// Create an instance of request to register a new ticket.
+        /// </summary>
+        /// <param name="title">Title of the ticket.</param>
+        /// <param name="description">Description of the ticket.</param>
+        /// <param name="ticketType">Type of ticket (i.e. <example>Defect</example>).</param>
+        /// <param name="ticketPriority">Priority of ticket (i.e. <example>High</example>).</param>
+        /// <returns></returns>
+        public static Request CreateRequest(string title, string description, TicketType ticketType, TicketPriority ticketPriority)
+        {
+            return new Request(title, description, ticketType, ticketPriority);
         }
     }
 }

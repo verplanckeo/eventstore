@@ -13,6 +13,8 @@
         public const string TableEventStore = "EventStore";
 
         public const string TableReadUser = "User";
+
+        public const string TableReadTicket = "Ticket";
         
         #endregion
     }

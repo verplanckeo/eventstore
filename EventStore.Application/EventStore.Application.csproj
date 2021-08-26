@@ -14,8 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Ticket\NewFolder\" />
-    <Folder Include="Features\Ticket\Register\" />
     <Folder Include="Features\User\LoadSingleUser\" />
     <Folder Include="Features\User\LoadAllUsers\" />
   </ItemGroup>

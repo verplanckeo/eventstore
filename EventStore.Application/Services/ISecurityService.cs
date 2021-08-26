@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using EventStore.Core.Domains.User;
 
@@ -12,7 +13,15 @@ namespace EventStore.Application.Services
         /// <param name="user">User for which the token is to be generated.</param>
         /// <param name="cancellationToken"></param>
         /// <returns>Json WebToken</returns>
-        Task<string> GenerateJsonWebToken(User user, CancellationToken cancellationToken);
+        Task<string> GenerateJsonWebTokenAsync(User user, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Verify if the given access token is a valid JWT token.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<bool> IsJsonWebTokenValidAsync(string token, CancellationToken cancellationToken);
 
         /// <summary>
         /// Generate a hash from the given password. The salt is generated in this method.

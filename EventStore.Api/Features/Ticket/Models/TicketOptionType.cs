@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace EventStore.Api.Features.Models
+namespace EventStore.Api.Features.Ticket.Models
 {
     /// <summary>
-    /// Which type you wish to get
+    /// Which type you wish to get.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum TicketOptionType

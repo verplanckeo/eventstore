@@ -22,10 +22,6 @@ namespace EventStore.Application.Features.Ticket.Option
         private IEnumerable<string> GetAll()
         {
             yield return TicketState.New.ToString();
-            yield return TicketState.InProgress.ToString();
-            yield return TicketState.Resolved.ToString();
-            yield return TicketState.Done.ToString();
-            yield return TicketState.Closed.ToString();
         }
     }
 }

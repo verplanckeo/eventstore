@@ -26,6 +26,6 @@ namespace EventStore.Api.Features.Ticket.Register
         /// </summary>
         /// <param name="ticketId"><see cref="TicketId"/></param>
         /// <returns></returns>
-        public Response Create(string ticketId) => new Response(ticketId);
+        public static Response Create(string ticketId) => new Response(ticketId);
     }
 }
