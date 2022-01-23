@@ -16,7 +16,7 @@ namespace EventStore.Application.Test.Features.User.Register
         private IUserRepository _repository;
         private IMediatorFactory _mediatorFactory;
 
-        private RegisterUserMediatorCommandHandler _sut;
+        private Application.Features.User.Register.RegisterUserMediatorCommandHandler _sut;
 
         [TestInitialize]
         public void Initialize()
@@ -24,7 +24,7 @@ namespace EventStore.Application.Test.Features.User.Register
             _repository = A.Fake<IUserRepository>();
             _mediatorFactory = A.Fake<IMediatorFactory>();
 
-            _sut = new RegisterUserMediatorCommandHandler(_repository, _mediatorFactory);
+            _sut = new Application.Features.User.Register.RegisterUserMediatorCommandHandler(_repository, _mediatorFactory);
         }
 
         [TestMethod]

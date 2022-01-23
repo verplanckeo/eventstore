@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.accountService.getAll()
       .pipe(first())
-      .subscribe(users => this.users = users);
+      .subscribe((users: User[]) => this.users = Array.from(users));
   }
 
   deleteUser(user: User): void{

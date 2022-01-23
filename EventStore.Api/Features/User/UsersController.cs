@@ -5,6 +5,7 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using EventStore.Application.Features.User.Authenticate;
+using EventStore.Application.Features.User.LoadAllUsers;
 using EventStore.Application.Features.User.Register;
 using EventStore.Application.Mediator;
 using EventStore.Infrastructure.Constants;
@@ -109,16 +110,26 @@ namespace EventStore.Api.Features.User
         /// <summary>
         /// Get all users active on the platform
         /// </summary>
-        /// <param name="request"><see cref="LoadAllUsers.Request"/></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet]
-        [SwaggerRequestExample(typeof(LoadAllUsers.Request), typeof(LoadAllUsers.RequestExample))]
         [ProducesResponseType(typeof(LoadAllUsers.Response), (int)HttpStatusCode.OK)]
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(LoadAllUsers.ResponseExample))]
-        public Task<IActionResult> GetUsers(LoadAllUsers.Request request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException("Started working on tickets - state pattern");
+            try
+            {
+                var scope = _mediatorFactory.CreateScope();
+                var mediatorResponse = await scope.SendAsync(LoadAllUsersMediatorCommand.CreateCommand(), cancellationToken);
+
+                var response = LoadAllUsers.Response.Create(mediatorResponse.Users);
+
+                return new OkObjectResult(response);
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
+            }
         }
     }
 }

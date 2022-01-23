@@ -1,0 +1,8 @@
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
+EXPOSE 443
+WORKDIR /api
+
+ENV ASPNETCORE_ENVIRONMENT ${ASPNETCORE_ENVIRONMENT}
+
+COPY /EventStore.Api/bin/Debug/net5.0 /.
+ENTRYPOINT ["dotnet", "EventStore.Api.dll"]
