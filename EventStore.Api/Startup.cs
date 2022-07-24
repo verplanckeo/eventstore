@@ -68,8 +68,7 @@ namespace EventStore.Api
                 {
                     // order does matter - add custom filters 
                     //options.Filters.Add<TypeOfFilter>();
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Latest);
+                });
         }
 
         /// <summary>

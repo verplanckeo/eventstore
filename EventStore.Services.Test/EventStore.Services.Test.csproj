@@ -1,27 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FakeItEasy" Version="6.2.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.5" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.5" />
-    <PackageReference Include="coverlet.collector" Version="1.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EventStore.Application\EventStore.Application.csproj" />
-    <ProjectReference Include="..\EventStore.Infrastructure\EventStore.Infrastructure.csproj" />
-    <ProjectReference Include="..\EventStore.Services\EventStore.Services.csproj" />
-    <ProjectReference Include="..\EventStore.Shared.Test\EventStore.Shared.Test.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Builders\" />
-  </ItemGroup>
-
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="FakeItEasy" Version="6.2.1"/>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0"/>
+		<PackageReference Include="MSTest.TestAdapter" Version="2.2.5"/>
+		<PackageReference Include="MSTest.TestFramework" Version="2.2.5"/>
+		<PackageReference Include="coverlet.collector" Version="1.2.0"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\EventStore.Application\EventStore.Application.csproj"/>
+		<ProjectReference Include="..\EventStore.Infrastructure\EventStore.Infrastructure.csproj"/>
+		<ProjectReference Include="..\EventStore.Services\EventStore.Services.csproj"/>
+		<ProjectReference Include="..\EventStore.Shared.Test\EventStore.Shared.Test.csproj"/>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Builders\"/>
+	</ItemGroup>
 </Project>

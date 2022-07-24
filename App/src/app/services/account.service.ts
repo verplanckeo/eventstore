@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { localStorageKeys, apiUrls, applicationUrls } from '../seedwork';
 import { User } from '../models';
+import { GetAllUsersResponse } from './account.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +57,8 @@ export class AccountService {
     return this.http.post(apiUrls.user.register, user);
   }
 
-  getAll(): Observable<User[]>{
-    return this.http.get<User[]>(apiUrls.user.users);
+  getAll(): Observable<GetAllUsersResponse>{
+    return this.http.get<GetAllUsersResponse>(apiUrls.user.users);
   }
 
   //todo: Add validation on id value?

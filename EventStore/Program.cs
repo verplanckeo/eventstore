@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -15,7 +14,7 @@ namespace EventStore
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello EventStore!");
 
             var task = MainAsync(args);
             task.Wait();
@@ -29,9 +28,9 @@ namespace EventStore
                 .UseEnvironment(environment)
                 .ConfigureAppConfiguration((context, builder) =>
                 {
-                    builder.SetBasePath(Directory.GetCurrentDirectory());
                     builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                     builder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true);
+                    builder.AddUserSecrets<Registrations>();
                     builder.AddEnvironmentVariables();
                     builder.AddCommandLine(args);
 

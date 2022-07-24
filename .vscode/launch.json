@@ -1,0 +1,60 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Api (debug)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_api",
+            "program": "${workspaceFolder}/EventStore.Api/bin/Debug/net6.0/EventStore.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/EventStore.Api/bin/Debug/net6.0",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5000"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        {
+            "name": "Launch Swagger (Api)",
+            "request": "launch",
+            "type": "msedge",
+            "url": "http://localhost:5000/swagger",
+            "webRoot": "${workspaceFolder}/EventStore.Api"
+        },
+        {
+            "name": "Console (debug)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_console",
+            "program": "${workspaceFolder}/EventStore/bin/Debug/net6.0/EventStore.Console.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/EventStore/bin/Debug/net6.0",
+            "stopAtEntry": false,
+            "console": "integratedTerminal",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+
+    ],
+    "compounds": [
+        {
+            "name": "BUILD & DEBUG - API",
+            "configurations": [
+                "Api (debug)",
+                "Launch Swagger (Api)"
+            ],
+            "stopAll": true,
+        }
+    ]
+}

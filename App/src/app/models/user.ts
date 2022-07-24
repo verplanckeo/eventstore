@@ -13,9 +13,13 @@ export class User{
         userName: string,
         password: string,
         firstName: string,
-        lastName: string
-    ): User{
+        lastName: string,
+        id?: string): User{
         let user =  new User();
+
+        if(id){
+            user.id = id;
+        }
 
         user.userName = userName;
         user.password = password;
