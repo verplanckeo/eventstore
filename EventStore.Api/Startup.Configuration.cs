@@ -1,4 +1,4 @@
-﻿using EventStore.Infrastructure.Seedwork;
+﻿using EventStore.Infrastructure.Infra;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventStore.Api
@@ -13,6 +13,7 @@ namespace EventStore.Api
         {
             services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
             services.Configure<Jwt>(Configuration.GetSection(nameof(Jwt)));
+            services.Configure<Infrastructure.Infra.Azure>(Configuration.GetSection(nameof(Azure)));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using EventStore.Application.Features.User.Password;
-using EventStore.Application.Features.User.Register;
 using EventStore.Application.Test.Builders;
 using EventStore.Shared.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

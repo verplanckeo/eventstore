@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using EventStore.Infrastructure.Seedwork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;

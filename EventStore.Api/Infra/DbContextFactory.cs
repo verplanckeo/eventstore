@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace EventStore.Api.Seedwork
+namespace EventStore.Api.Infra
 {
     /// <summary>
     /// Db context factory

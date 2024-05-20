@@ -1,5 +1,4 @@
-﻿using EventStore.Core.Domains.Ticket;
-using EventStore.Core.Domains.Ticket.Option;
+﻿using EventStore.Core.Domains.Ticket.Option;
 using MediatR;
 
 namespace EventStore.Application.Features.Ticket.UpdateReadTicket

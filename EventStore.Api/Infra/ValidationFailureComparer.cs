@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace EventStore.Api.Seedwork
+namespace EventStore.Api.Infra
 {
     /// <summary>
     /// Fluent ValidationFailure comparison

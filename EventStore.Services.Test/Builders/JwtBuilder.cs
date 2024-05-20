@@ -1,4 +1,4 @@
-﻿using EventStore.Infrastructure.Seedwork;
+﻿using EventStore.Infrastructure.Infra;
 using EventStore.Shared.Test;
 
 namespace EventStore.Services.Test.Builders

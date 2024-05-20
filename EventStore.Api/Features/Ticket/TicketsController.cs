@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using EventStore.Api.Features.Ticket.Models;
-using EventStore.Api.Seedwork;
+using EventStore.Api.Infra;
 using EventStore.Application.Features.Ticket.Option;
 using EventStore.Application.Features.Ticket.Register;
 using EventStore.Application.Mediator;
@@ -12,7 +12,6 @@ using EventStore.Infrastructure.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace EventStore.Api.Features.Ticket

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using EventStore.Application.Features.User.Register;
 using EventStore.Application.Mediator;
 using EventStore.Infrastructure.Persistence.Database;
 using EventStore.Infrastructure.Persistence.Entities;

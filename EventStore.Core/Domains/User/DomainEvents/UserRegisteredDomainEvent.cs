@@ -1,5 +1,4 @@
-﻿using System;
-using EventStore.Core.DddSeedwork;
+﻿using EventStore.Core.DddSeedwork;
 
 namespace EventStore.Core.Domains.User.DomainEvents
 {

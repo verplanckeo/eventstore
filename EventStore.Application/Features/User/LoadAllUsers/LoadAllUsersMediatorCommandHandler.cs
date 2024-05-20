@@ -1,6 +1,5 @@
 ﻿using EventStore.Application.Repositories.User;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 

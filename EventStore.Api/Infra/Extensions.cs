@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 using EventStore.Core.Domains.Ticket.Option;
 
-namespace EventStore.Api.Seedwork
+namespace EventStore.Api.Infra
 {
     /// <summary>
     /// Extension methods for help.

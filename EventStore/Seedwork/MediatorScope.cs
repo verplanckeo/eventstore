@@ -1,9 +1,7 @@
 ﻿#nullable enable
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EventStore.Application.Mediator;
-using EventStore.Infrastructure.Persistence.Entities;
 using MediatR;
 
 namespace EventStore.Seedwork

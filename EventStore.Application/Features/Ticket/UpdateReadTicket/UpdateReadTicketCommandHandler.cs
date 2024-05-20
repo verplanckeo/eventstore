@@ -14,7 +14,7 @@ namespace EventStore.Application.Features.Ticket.UpdateReadTicket
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(UpdateReadTicketCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateReadTicketCommand request, CancellationToken cancellationToken)
         {
             var result = await _repository.SaveOrUpdateTicketAsync(
                 ReadTicketModel.CreateModel(
@@ -32,7 +32,6 @@ namespace EventStore.Application.Features.Ticket.UpdateReadTicket
             {
                 //we could not save or update the model - gracefully handle this.
             }
-            return Unit.Value;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using EventStore.Application.Mediator;
 using MediatR;
 
-namespace EventStore.Api.Seedwork
+namespace EventStore.Api.Infra
 {
     /// <summary>
     /// Mediator scope

@@ -1,10 +1,7 @@
-﻿using System.Linq;
-using Autofac;
-using EventStore.Api.Seedwork;
+﻿using Autofac;
+using EventStore.Api.Infra;
+using EventStore.Application.Features.User.Register;
 using EventStore.Application.Mediator;
-using EventStore.Application.Repositories;
-using EventStore.Application.Repositories.Ticket;
-using EventStore.Application.Repositories.User;
 using EventStore.Infrastructure.Http;
 using EventStore.Infrastructure.Persistence.Database;
 using EventStore.Infrastructure.Persistence.Entities;
@@ -14,6 +11,7 @@ using EventStore.Infrastructure.Persistence.Repositories.Ticket;
 using EventStore.Infrastructure.Persistence.Repositories.User;
 using EventStore.Services;
 using MediatR.Extensions.Autofac.DependencyInjection;
+using MediatR.Extensions.Autofac.DependencyInjection.Builder;
 
 namespace EventStore.Api
 {
@@ -36,9 +34,13 @@ namespace EventStore.Api
 
         private void RegisterMediator(ref ContainerBuilder builder)
         {
-            builder.RegisterMediatR(typeof(Program).Assembly);
-            builder.RegisterMediatR(typeof(IEventStoreRepository).Assembly);
+            var configuration = MediatRConfigurationBuilder
+                .Create(typeof(RegisterUserMediatorCommand).Assembly)
+                .WithAllOpenGenericHandlerTypesRegistered()
+                .Build();
 
+            builder.RegisterMediatR(configuration);
+            
             builder.RegisterType<MediatorFactory>().As<IMediatorFactory>().InstancePerLifetimeScope();
             builder.RegisterType<MediatorScope>().As<IMediatorScope>().InstancePerLifetimeScope();
         }

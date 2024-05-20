@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using EventStore.Application.Mediator;
-using MediatR;
 
 namespace EventStore.Seedwork
 {

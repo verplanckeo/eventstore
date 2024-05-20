@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EventStore.Infrastructure.Seedwork;
+using EventStore.Infrastructure.Infra;
 using EventStore.Services.Test.Builders;
 using EventStore.Shared.Test;
 using FakeItEasy;

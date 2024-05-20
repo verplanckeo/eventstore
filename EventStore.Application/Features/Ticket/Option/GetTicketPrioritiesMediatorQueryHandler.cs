@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventStore.Core.Domains.Ticket;
 using EventStore.Core.Domains.Ticket.Option;
 using MediatR;
 

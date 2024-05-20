@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace EventStore.Api.Features.Ticket.Register
+﻿namespace EventStore.Api.Features.Ticket.Register
 {
     /// <summary>
     /// Response returned after registering a new ticket.

@@ -1,4 +1,4 @@
-﻿using EventStore.Api.Seedwork;
+﻿using EventStore.Api.Infra;
 using EventStore.Application.Features.User.Register;
 using FluentValidation;
 using MediatR;

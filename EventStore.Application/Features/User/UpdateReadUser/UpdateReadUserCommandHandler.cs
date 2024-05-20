@@ -14,7 +14,7 @@ namespace EventStore.Application.Features.User.UpdateReadUser
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(UpdateReadUserCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateReadUserCommand request, CancellationToken cancellationToken)
         {
             var result = await _repository.SaveOrUpdateUserAsync(ReadUserModel.CreateNewReadUser(request.AggregateRootId, request.FirstName, request.LastName, request.UserName, request.Version), cancellationToken);
 
@@ -22,7 +22,6 @@ namespace EventStore.Application.Features.User.UpdateReadUser
             {
                 //could not save / update read model
             }
-            return Unit.Value;
         }
     }
 }

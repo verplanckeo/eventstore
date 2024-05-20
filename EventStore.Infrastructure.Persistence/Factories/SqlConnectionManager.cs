@@ -1,4 +1,6 @@
 ﻿using System;
+using Azure.Core;
+using Azure.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
@@ -19,8 +21,17 @@ namespace EventStore.Infrastructure.Persistence.Factories
         {
             if (_sqlConnection != null) return _sqlConnection;
 
+            var tenantId =  _configuration[Constants.Security.Azure.TenantId];;
+            var clientId = _configuration[Constants.Security.Azure.ClientId];
+            var clientSecret = _configuration[Constants.Security.Azure.ClientSecret];
+            var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+            var token = credential.GetToken(new TokenRequestContext(new[]{"https://database.windows.net/.default"})).Token;
+            
             var connectionString = _configuration.GetConnectionString(Constants.Database.ConnectionStringName);
-            _sqlConnection = new SqlConnection(connectionString);
+            _sqlConnection = new SqlConnection(connectionString)
+            {
+                AccessToken = token
+            };
 
             return _sqlConnection;
         }

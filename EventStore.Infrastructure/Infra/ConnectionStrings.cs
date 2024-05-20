@@ -1,4 +1,4 @@
-﻿namespace EventStore.Infrastructure.Seedwork
+﻿namespace EventStore.Infrastructure.Infra
 {
     /// <summary>
     /// All connection strings are represented using this class

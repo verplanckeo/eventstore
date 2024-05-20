@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventStore.Application.Services;
 using EventStore.Core.Domains.User;
-using EventStore.Infrastructure.Seedwork;
+using EventStore.Infrastructure.Infra;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

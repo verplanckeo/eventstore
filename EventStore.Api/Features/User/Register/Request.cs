@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EventStore.Api.Features.User.Register
+﻿namespace EventStore.Api.Features.User.Register
 {
     /// <summary>
     /// Request model to register a new user.

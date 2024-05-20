@@ -1,7 +1,4 @@
 ﻿using EventStore.Application.Features.Ticket.Register;
-using EventStore.Application.Mediator;
-using EventStore.Application.Repositories.Ticket;
-using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EventStore.Application.Test.Features.Ticket.Register

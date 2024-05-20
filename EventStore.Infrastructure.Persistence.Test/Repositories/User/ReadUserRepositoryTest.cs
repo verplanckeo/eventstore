@@ -1,11 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using EventStore.Application.Features.User;
-using EventStore.Application.Repositories;
 using EventStore.Infrastructure.Persistence.Database;
 using EventStore.Infrastructure.Persistence.Entities;
 using EventStore.Infrastructure.Persistence.Repositories.User;
-using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EventStore.Infrastructure.Persistence.Test.Repositories.User

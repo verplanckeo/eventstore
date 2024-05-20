@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EventStore.Core.DddSeedwork;
 using EventStore.Core.Domains.User.DomainEvents;
-using System.Security.Cryptography;
 
 namespace EventStore.Core.Domains.User
 {

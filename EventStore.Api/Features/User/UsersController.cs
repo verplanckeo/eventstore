@@ -10,7 +10,6 @@ using EventStore.Application.Features.User.Register;
 using EventStore.Application.Mediator;
 using EventStore.Infrastructure.Constants;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace EventStore.Api.Features.User

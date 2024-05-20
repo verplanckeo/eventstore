@@ -1,4 +1,4 @@
-﻿namespace EventStore.Infrastructure.Seedwork
+﻿namespace EventStore.Infrastructure.Infra
 {
     /// <summary>
     /// Jwt configuration used to generate a Jwt token

@@ -9,6 +9,16 @@ Should you have any questions or you wish to discuss certain topics, don't hesit
 + Run EventStore.Console project (this project will execute the required db migrations)
 + Next, run EventStore.Api project (with Visual Studio, set as start up project and press F5)
 + Browse to: http://localhost:4000/swagger to see the available api calls
++ Extra: If you run against an Azure SQL Database - you'll need to perform the following scripts (as admin) on the database. 
+ + Create an app registration, in my case I named it eventstore-dev. You need to re-use the name in the SQL script
+```
+CREATE USER [eventstore-dev] FROM EXTERNAL PROVIDER;
+ALTER ROLE [db_datareader] ADD MEMBER [eventstore-dev];
+ALTER ROLE [db_datawriter] ADD MEMBER [eventstore-dev];
+ALTER ROLE [db_accessadmin] ADD MEMBER [eventstore-dev];
+GRANT ALTER ON SCHEMA::dbo TO [eventstore-dev];
+GRANT CREATE TABLE TO [eventstore-dev];
+```
 
 ## To add migrations:
 + Open console in Visual Studio (NuGet package manager console)

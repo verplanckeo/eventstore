@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using EventStore.Application.Features.User.Authenticate;
 using EventStore.Application.Test.Builders;
 using EventStore.Shared.Test;

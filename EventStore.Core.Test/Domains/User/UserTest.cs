@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using EventStore.Core.Domains.User;
 using EventStore.Core.Domains.User.DomainEvents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

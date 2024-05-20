@@ -1,8 +1,7 @@
 ﻿using Autofac;
 using EventStore.Application.Mediator;
-using MediatR;
 
-namespace EventStore.Api.Seedwork
+namespace EventStore.Api.Infra
 {
     /// <summary>
     /// Factory used to add features in the future for mediator scopes

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using EventStore.Application.Features.Ticket.Option;
-using EventStore.Core.Domains.Ticket;
 using EventStore.Core.Domains.Ticket.Option;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
