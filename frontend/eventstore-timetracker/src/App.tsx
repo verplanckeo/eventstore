@@ -8,6 +8,7 @@ import { Login } from './pages/auth';
 import { Dashboard } from './pages/dashboard';
 import { GuestGuard } from './auth/guard/guest-guard';
 import { AuthGuard } from './auth/guard/auth-guard';
+import { Projects } from './pages/project';
 
 function App() {
 
@@ -40,6 +41,16 @@ function App() {
 					element={
 						<AuthGuard>
 							<Dashboard />
+						</AuthGuard>
+					}
+					/>
+
+				{/* Protected routes with AuthGuard */}
+				<Route
+					path="/projects"
+					element={
+						<AuthGuard>
+							<Projects />
 						</AuthGuard>
 					}
 					/>
