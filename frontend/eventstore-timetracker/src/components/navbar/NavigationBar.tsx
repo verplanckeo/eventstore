@@ -1,7 +1,9 @@
-import { Add, Assessment } from "@mui/icons-material";
+// frontend/eventstore-timetracker/src/components/navbar/NavigationBar.tsx
+import { Assessment, Login as LoginIcon, PersonAdd, AccessTime, Work } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/use-auth";
 
 interface NavItem {
 	label: string;
@@ -10,14 +12,25 @@ interface NavItem {
 }
 
 export const NavigationBar: React.FC = () => {
-	const [currentView, setCurrentView] = useState<number>(0); // 0 = add, 1 = overview
+	const [currentView, setCurrentView] = useState<number>(0);
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { isAuthenticated } = useAuth();
 
-	const navItems: NavItem[] = [
-		{ label: "Add Entry", path: "/add", icon: <Add /> },
-		{ label: "Overview", path: "/overview", icon: <Assessment /> },
+	// Define navigation items based on authentication status
+	const guestNavItems: NavItem[] = [
+		{ label: "Login", path: "/login", icon: <LoginIcon /> },
+		{ label: "Register", path: "/register", icon: <PersonAdd /> },
 	];
+
+	const authenticatedNavItems: NavItem[] = [
+		{ label: "Time Entries", path: "/time-entries", icon: <AccessTime /> },
+		{ label: "Projects", path: "/projects", icon: <Work /> },
+		{ label: "Analytics", path: "/analytics", icon: <Assessment /> },
+	];
+
+	// Select the appropriate nav items based on authentication status
+	const navItems = isAuthenticated ? authenticatedNavItems : guestNavItems;
 
 	// Update currentView based on the current pathname
 	useEffect(() => {
@@ -26,8 +39,11 @@ export const NavigationBar: React.FC = () => {
 		);
 		if (currentIndex !== -1) {
 			setCurrentView(currentIndex);
+		} else {
+			// If the current path doesn't match any nav item, reset to first item
+			setCurrentView(0);
 		}
-	}, [location.pathname]);
+	}, [location.pathname, navItems]);
 
 	const handleNavItemClick = (
 		path: string,

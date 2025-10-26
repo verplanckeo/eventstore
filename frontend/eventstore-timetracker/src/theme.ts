@@ -1,3 +1,4 @@
+// frontend/eventstore-timetracker/src/theme.ts
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -266,6 +267,38 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: '#C62828',
+        },
+      },
+    },
+    MuiBottomNavigation: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#2D2D2D',
+          borderTop: '1px solid #404040',
+        },
+      },
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        root: {
+          color: '#B0B0B0',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            color: '#FFB3B0',
+            backgroundColor: 'rgba(198, 40, 40, 0.05)',
+          },
+          '&.Mui-selected': {
+            color: '#FF5F52',
+            '& .MuiBottomNavigationAction-label': {
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              color: '#FF5F52',
+            },
+          },
+          '& .MuiBottomNavigationAction-label': {
+            color: 'inherit',
+            transition: 'all 0.3s ease',
+          },
         },
       },
     },
