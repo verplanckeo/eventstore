@@ -89,7 +89,7 @@ namespace EventStore.Api
 
             app.UseCors(c =>
             {
-                c.WithOrigins("http://localhost:4200"); //TODO - read this from configuration
+                c.WithOrigins("http://localhost:5000"); //TODO - read this from configuration
                 c.WithHeaders("authorization", "accept", "content-type", "origin"); //TODO - add custom headers for multi tenancy
                 c.AllowAnyMethod();
             });

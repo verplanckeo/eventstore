@@ -1,4 +1,4 @@
-import RegisterUserView from "../../../components/users/register/RegisterUserView";
+import RegisterUserView from "./register-user-view";
 
 export function RegisterUser() {
     return <RegisterUserView />;

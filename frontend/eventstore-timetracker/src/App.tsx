@@ -4,20 +4,50 @@ import { NavigationBar } from './components/navbar/NavigationBar'
 import { Header } from './components/header/Header'
 import NotificationContainer from './components/notification/NotificationContainer'
 import { RegisterUser } from './pages/users/register';
+import { Login } from './pages/auth';
+import { Dashboard } from './pages/dashboard';
+import { GuestGuard } from './auth/guard/guest-guard';
+import { AuthGuard } from './auth/guard/auth-guard';
 
 function App() {
 
   return (
     <>
-			<Header />
-			<Routes>
-				<Route path="/" element={<Navigate to="/user-new" replace />} />
-				<Route path="/user-new" element={<RegisterUser />} />
-				{/* <Route path="/user-overview" element={<Overview />} /> */}
+		<Header />
+		<Routes>
+			<Route path="/" element={<Navigate to="/login" replace />} />
+				{/* Public routes with GuestGuard */}
+				<Route
+					path="/login"
+					element={
+						<GuestGuard>
+							<Login />
+						</GuestGuard>
+					}
+				/>
+				<Route
+					path="/register"
+					element={
+						<GuestGuard>
+							<RegisterUser />
+						</GuestGuard>
+					}
+				/>
 
-			</Routes>
-			<NotificationContainer />
-			<NavigationBar />
+				{/* Protected routes with AuthGuard */}
+				<Route
+					path="/dashboard"
+					element={
+						<AuthGuard>
+							<Dashboard />
+						</AuthGuard>
+					}
+					/>
+			{/* <Route path="/user-overview" element={<Overview />} /> */}
+
+		</Routes>
+		<NotificationContainer />
+		<NavigationBar />
     </>
   )
 }
