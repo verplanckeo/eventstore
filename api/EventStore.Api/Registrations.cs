@@ -7,6 +7,7 @@ using EventStore.Infrastructure.Persistence.Database;
 using EventStore.Infrastructure.Persistence.Entities;
 using EventStore.Infrastructure.Persistence.Factories;
 using EventStore.Infrastructure.Persistence.Repositories;
+using EventStore.Infrastructure.Persistence.Repositories.Project;
 using EventStore.Infrastructure.Persistence.Repositories.Ticket;
 using EventStore.Infrastructure.Persistence.Repositories.User;
 using EventStore.Services;
@@ -65,6 +66,8 @@ namespace EventStore.Api
             builder.RegisterType<ReadUserRepository>().AsImplementedInterfaces();
             builder.RegisterType<TicketRepository>().AsImplementedInterfaces();
             builder.RegisterType<ReadTicketRepository>().AsImplementedInterfaces();
+            builder.RegisterType<ProjectRepository>().AsImplementedInterfaces();
+            builder.RegisterType<ReadProjectRepository>().AsImplementedInterfaces();
             builder.RegisterType<EventStoreRepository>().AsImplementedInterfaces();
         }
 

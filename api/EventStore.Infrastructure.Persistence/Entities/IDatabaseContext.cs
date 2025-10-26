@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using EventStore.Infrastructure.Persistence.Entities.Project;
 using EventStore.Infrastructure.Persistence.Entities.Ticket;
 using EventStore.Infrastructure.Persistence.Entities.User;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,10 @@ namespace EventStore.Infrastructure.Persistence.Entities
         /// </summary>
         DbSet<ReadTicket> ReadTickets { get; set; }
 
+        /// <summary>
+        /// Get overview of projects based on it's read model.
+        /// </summary>
+        DbSet<ReadProject> ReadProjects { get; set; }
 
     }
 }

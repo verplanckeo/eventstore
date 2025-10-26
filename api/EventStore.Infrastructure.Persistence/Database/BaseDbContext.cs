@@ -1,5 +1,6 @@
 ﻿using EventStore.Infrastructure.Persistence.Configurations;
 using EventStore.Infrastructure.Persistence.Entities;
+using EventStore.Infrastructure.Persistence.Entities.Project;
 using EventStore.Infrastructure.Persistence.Entities.Ticket;
 using EventStore.Infrastructure.Persistence.Entities.User;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace EventStore.Infrastructure.Persistence.Database
             modelBuilder.ApplyConfiguration(new EventStoreRecordConfiguration());
             modelBuilder.ApplyConfiguration(new ReadUserConfiguration());
             modelBuilder.ApplyConfiguration(new ReadTicketConfiguration());
+            modelBuilder.ApplyConfiguration(new ReadProjectConfiguration());
         }
 
         public DbSet<EventStoreRecord> EventStoreRecords { get; set; }
@@ -25,5 +27,7 @@ namespace EventStore.Infrastructure.Persistence.Database
         public DbSet<ReadUser> ReadUsers { get; set; }
 
         public DbSet<ReadTicket> ReadTickets { get; set; }
+        
+        public DbSet<ReadProject> ReadProjects { get; set; }
     }
 }

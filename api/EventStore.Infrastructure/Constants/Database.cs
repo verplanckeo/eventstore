@@ -16,6 +16,8 @@
 
         public const string TableReadTicket = "Ticket";
         
+        public const string TableReadProject = "Project";
+        
         #endregion
     }
 }
