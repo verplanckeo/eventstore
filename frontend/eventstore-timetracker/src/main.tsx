@@ -10,9 +10,11 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css'
 import { NotificationProvider } from "./components/notification/notification.provider.tsx";
 import theme from "./theme.ts";
+import { AuthProvider } from "./auth/auth.provider.tsx";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+		<AuthProvider>
 			<BrowserRouter>
 				<NotificationProvider>
 					<ThemeProvider theme={theme}>
@@ -23,5 +25,6 @@ createRoot(document.getElementById('root')!).render(
 					</ThemeProvider>
 				</NotificationProvider>
 			</BrowserRouter>
+		</AuthProvider>
 	</StrictMode>
 )
