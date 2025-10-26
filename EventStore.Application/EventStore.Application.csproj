@@ -13,8 +13,4 @@
     <ProjectReference Include="..\EventStore.Core\EventStore.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\User\LoadSingleUser\" />
-  </ItemGroup>
-
 </Project>

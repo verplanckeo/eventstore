@@ -29,5 +29,13 @@ namespace EventStore.Application.Repositories.User
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<ReadUserModel> LoadUserByUserNameAsync(string userName, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Load a given user from our system
+        /// </summary>
+        /// <param name="aggregateRootId">Id of the user.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<ReadUserModel> LoadUserByAggregateRootIdAsync(string aggregateRootId, CancellationToken cancellationToken = default);
     }
 }

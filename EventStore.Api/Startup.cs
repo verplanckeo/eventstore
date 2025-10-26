@@ -94,7 +94,7 @@ namespace EventStore.Api
                 c.AllowAnyMethod();
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

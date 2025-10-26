@@ -57,7 +57,7 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
             return (await _databaseContext.ReadUsers.ToListAsync(cancellationToken)).Select(r => ReadUserModel.CreateNewReadUser(r.AggregateRootId, r.FirstName, r.LastName, r.UserName, r.Version));
         }
 
-        private async Task<ReadUserModel> LoadUserByAggregateRootIdAsync(string aggregateRootId, CancellationToken cancellationToken)
+        public async Task<ReadUserModel> LoadUserByAggregateRootIdAsync(string aggregateRootId, CancellationToken cancellationToken)
         {
             var entity = await _databaseContext.ReadUsers.FindAsync(new[]{aggregateRootId}, cancellationToken);
             

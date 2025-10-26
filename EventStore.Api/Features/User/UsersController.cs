@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventStore.Application.Features.User.Authenticate;
 using EventStore.Application.Features.User.LoadAllUsers;
+using EventStore.Application.Features.User.LoadSingleUser;
 using EventStore.Application.Features.User.Register;
 using EventStore.Application.Mediator;
 using EventStore.Infrastructure.Constants;
@@ -122,6 +123,58 @@ namespace EventStore.Api.Features.User
                 var mediatorResponse = await scope.SendAsync(LoadAllUsersMediatorCommand.CreateCommand(), cancellationToken);
 
                 var response = LoadAllUsers.Response.Create(mediatorResponse.Users);
+
+                return new OkObjectResult(response);
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get a single user from our platform.
+        /// </summary>
+        /// <param name="id">AggregateRootId of the user we wish to retrieve.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(LoadSingleUser.Response), (int)HttpStatusCode.OK)]
+        [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(LoadAllUsers.ResponseExample))]
+        public async Task<IActionResult> GetSingleUser(string id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var scope = _mediatorFactory.CreateScope();
+                var mediatorResponse = await scope.SendAsync(LoadSingleUserMediatorQuery.CreateQuery(id), cancellationToken);
+
+                var response = LoadSingleUser.Response.Create(mediatorResponse.User);
+
+                return new OkObjectResult(response);
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get a single user from our platform.
+        /// </summary>
+        /// <param name="id">AggregateRootId of the user we wish to retrieve.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("me")]
+        [ProducesResponseType(typeof(LoadSingleUser.Response), (int)HttpStatusCode.OK)]
+        [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(LoadAllUsers.ResponseExample))]
+        public async Task<IActionResult> GetSingleUser(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var scope = _mediatorFactory.CreateScope();
+                var mediatorResponse = await scope.SendAsync(LoadSingleUserMediatorQuery.CreateQuery(null), cancellationToken);
+
+                var response = LoadSingleUser.Response.Create(mediatorResponse.User);
 
                 return new OkObjectResult(response);
             }

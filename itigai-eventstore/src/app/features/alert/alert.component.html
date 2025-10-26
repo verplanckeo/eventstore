@@ -1,0 +1,4 @@
+<div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+  <button type="button" class="btn-close" aria-label="Close" (click)="removeAlert(alert)" >
+  </button><span [innerHTML]="alert.message"></span>
+</div>
