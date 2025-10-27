@@ -18,7 +18,12 @@ namespace EventStore.Infrastructure.Persistence.Repositories.User
         public async Task<Core.Domains.User.User> LoadUserAsync(string id, CancellationToken cancellationToken)
         {
             var userId = new UserId(id);
-            var events = await _eventStoreRepository.LoadAsync(userId, cancellationToken);
+            return await LoadUserAsync(userId, cancellationToken);
+        }
+
+        public async Task<Core.Domains.User.User> LoadUserAsync(UserId id, CancellationToken cancellationToken)
+        {
+            var events = await _eventStoreRepository.LoadAsync(id, cancellationToken);
             return new Core.Domains.User.User(events);
         }
 

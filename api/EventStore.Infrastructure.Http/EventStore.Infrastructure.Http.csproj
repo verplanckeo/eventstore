@@ -5,4 +5,14 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EventStore.Application\EventStore.Application.csproj" />
+    <ProjectReference Include="..\EventStore.Infrastructure\EventStore.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.14.0" />
+  </ItemGroup>
+
 </Project>

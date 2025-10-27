@@ -127,6 +127,65 @@ namespace EventStore.Infrastructure.Persistence.Migrations
                     b.ToTable("Ticket", "read");
                 });
 
+            modelBuilder.Entity("EventStore.Infrastructure.Persistence.Entities.TimeEntry.ReadTimeEntry", b =>
+                {
+                    b.Property<string>("AggregateRootId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ActivityType")
+                        .HasMaxLength(50)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProjectCode")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Until")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.HasKey("AggregateRootId");
+
+                    b.HasIndex("From");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("IsRemoved", "From");
+
+                    b.ToTable("TimeEntry", "read");
+                });
+
             modelBuilder.Entity("EventStore.Infrastructure.Persistence.Entities.User.ReadUser", b =>
                 {
                     b.Property<string>("AggregateRootId")

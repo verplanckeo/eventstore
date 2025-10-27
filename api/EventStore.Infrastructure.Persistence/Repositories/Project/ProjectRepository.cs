@@ -18,7 +18,12 @@ public class ProjectRepository : IProjectRepository
     public async Task<Core.Domains.Project.Project> LoadProjectAsync(string id, CancellationToken cancellationToken)
     {
         var projectId = new ProjectId(id);
-        var events = await _eventStoreRepository.LoadAsync(projectId, cancellationToken);
+        return await LoadProjectAsync(projectId, cancellationToken);
+    }
+
+    public async Task<Core.Domains.Project.Project> LoadProjectAsync(ProjectId id, CancellationToken cancellationToken)
+    {
+        var events = await _eventStoreRepository.LoadAsync(id, cancellationToken);
         return new Core.Domains.Project.Project(events);
     }
 

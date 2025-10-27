@@ -9,6 +9,7 @@ using EventStore.Application.Features.User.LoadAllUsers;
 using EventStore.Application.Features.User.LoadSingleUser;
 using EventStore.Application.Features.User.Register;
 using EventStore.Application.Mediator;
+using EventStore.Application.Services;
 using EventStore.Infrastructure.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Filters;
@@ -24,14 +25,17 @@ namespace EventStore.Api.Features.User
     public class UsersController : ControllerBase
     {
         private readonly IMediatorFactory _mediatorFactory;
+        private readonly IServiceContext _context;
 
         /// <summary>
         /// CTor
         /// </summary>
         /// <param name="mediatorFactory"></param>
-        public UsersController(IMediatorFactory mediatorFactory)
+        /// <param name="context"></param>
+        public UsersController(IMediatorFactory mediatorFactory, IServiceContext context)
         {
             _mediatorFactory = mediatorFactory;
+            _context = context;
         }
 
         /// <summary>
@@ -161,7 +165,6 @@ namespace EventStore.Api.Features.User
         /// <summary>
         /// Get a single user from our platform.
         /// </summary>
-        /// <param name="id">AggregateRootId of the user we wish to retrieve.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("me")]

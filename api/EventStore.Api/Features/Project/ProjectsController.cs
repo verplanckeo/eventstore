@@ -14,7 +14,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace EventStore.Api.Features.Project;
 
-/// <summary>
+    /// <summary>
     /// Api controller for project management (add, edit, list, delete)
     /// </summary>
     [Route("api/[controller]")]
