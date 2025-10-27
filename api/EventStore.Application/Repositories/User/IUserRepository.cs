@@ -9,5 +9,7 @@ namespace EventStore.Application.Repositories.User
         Task<UserId> SaveUserAsync(Core.Domains.User.User user, CancellationToken cancellationToken);
 
         Task<Core.Domains.User.User> LoadUserAsync(string id, CancellationToken cancellationToken);
+        
+        Task<Core.Domains.User.User> LoadUserAsync(UserId id, CancellationToken cancellationToken);
     }
 }

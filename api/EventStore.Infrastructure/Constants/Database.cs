@@ -18,6 +18,8 @@
         
         public const string TableReadProject = "Project";
         
+        public const string TableReadTimeEntry = "TimeEntry";
+        
         #endregion
     }
 }

@@ -9,6 +9,7 @@ using EventStore.Infrastructure.Persistence.Factories;
 using EventStore.Infrastructure.Persistence.Repositories;
 using EventStore.Infrastructure.Persistence.Repositories.Project;
 using EventStore.Infrastructure.Persistence.Repositories.Ticket;
+using EventStore.Infrastructure.Persistence.Repositories.TimeEntry;
 using EventStore.Infrastructure.Persistence.Repositories.User;
 using EventStore.Services;
 using MediatR.Extensions.Autofac.DependencyInjection;
@@ -48,9 +49,8 @@ namespace EventStore.Api
 
         private void RegisterInfrastructureHttp(ref ContainerBuilder builder)
         {
-            builder.RegisterType<EventStoreHttpContext>()
-                .AsImplementedInterfaces()
-                .InstancePerRequest();
+            builder.RegisterType<EventStoreServiceContext>()
+                .AsImplementedInterfaces();
         }
 
         private void RegisterInfrastructurePersistence(ref ContainerBuilder builder)
@@ -62,6 +62,8 @@ namespace EventStore.Api
 
         private void RegisterRepositories(ref ContainerBuilder builder)
         {
+            builder.RegisterType<TimeEntryRepository>().AsImplementedInterfaces();
+            builder.RegisterType<ReadTimeEntryRepository>().AsImplementedInterfaces();
             builder.RegisterType<UserRepository>().AsImplementedInterfaces();
             builder.RegisterType<ReadUserRepository>().AsImplementedInterfaces();
             builder.RegisterType<TicketRepository>().AsImplementedInterfaces();
