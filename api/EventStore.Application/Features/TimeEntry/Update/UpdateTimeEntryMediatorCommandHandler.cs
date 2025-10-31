@@ -37,6 +37,7 @@ public class UpdateTimeEntryMediatorCommandHandler : IRequestHandler<UpdateTimeE
         var project = await _projectRepository.LoadProjectAsync(new ProjectId(request.ProjectId), cancellationToken);
         
         timeEntry.ChangeTimeEntry(
+            timeEntry.Id.ToString(),
             request.From,
             request.Until,
             request.UserId,

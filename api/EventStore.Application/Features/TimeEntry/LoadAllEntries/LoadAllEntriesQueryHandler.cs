@@ -22,21 +22,8 @@ public class LoadAllTimeEntriesMediatorQueryHandler : IRequestHandler<LoadAllTim
         if(!string.IsNullOrEmpty(request.UserId))
             timeEntries = await _repository.LoadAllActiveTimeEntriesForUserAsync(new Core.Domains.User.UserId(request.UserId), cancellationToken);
         else
-            timeEntries = await _repository.LoadAllActiveTimeEntriesAsync(cancellationToken);
+            timeEntries = await _repository.LoadAllActiveTimeEntriesAsync(cancellationToken); ;
 
-        var result = timeEntries.Select(te => ReadTimeEntryModel.CreateNewReadTimeEntry(
-            te.AggregateRootId,
-            te.From,
-            te.Until,
-            te.UserId,
-            te.UserName,
-            te.ProjectId,
-            te.ProjectCode,
-            te.ActivityType,
-            te.Comment,
-            te.IsRemoved,
-            te.Version)).ToList();
-
-        return LoadAllTimeEntriesMediatorQueryResult.CreateResult(result);
+        return LoadAllTimeEntriesMediatorQueryResult.CreateResult(timeEntries.ToList());
     }
 }

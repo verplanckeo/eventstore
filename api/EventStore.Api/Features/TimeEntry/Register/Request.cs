@@ -11,12 +11,12 @@ public class Request
     /// <summary>
     /// From when the given activity started
     /// </summary>
-    public DateTime From { get; set; }
+    public DateTimeOffset From { get; set; }
     
     /// <summary>
     /// Until when the given activity was executed
     /// </summary>
-    public DateTime Until { get; set; }
+    public DateTimeOffset Until { get; set; }
     
     /// <summary>
     /// User for whom the time entry is applicable to.

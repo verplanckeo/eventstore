@@ -22,19 +22,6 @@ public class LoadSingleTimeEntryMediatorQueryHandler : IRequestHandler<LoadSingl
         if (timeEntry == null)
             return LoadSingleTimeEntryMediatorQueryResult.CreateResult(null);
 
-        var result = ReadTimeEntryModel.CreateNewReadTimeEntry(
-            timeEntry.AggregateRootId,
-            timeEntry.From,
-            timeEntry.Until,
-            timeEntry.UserId,
-            timeEntry.UserName,
-            timeEntry.ProjectId,
-            timeEntry.ProjectCode,
-            timeEntry.ActivityType,
-            timeEntry.Comment,
-            timeEntry.IsRemoved,
-            timeEntry.Version);
-
-        return LoadSingleTimeEntryMediatorQueryResult.CreateResult(result);
+        return LoadSingleTimeEntryMediatorQueryResult.CreateResult(timeEntry);
     }
 }
