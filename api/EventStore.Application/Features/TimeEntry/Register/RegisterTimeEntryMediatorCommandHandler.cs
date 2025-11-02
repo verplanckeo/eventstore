@@ -47,15 +47,16 @@ public class RegisterTimeEntryMediatorCommandHandler : IRequestHandler<RegisterT
         // Update read model
         var updateReadCommand = UpdateReadTimeEntryCommand.CreateCommand(
             timeEntryId.ToString(),
-            request.From,
-            request.Until,
-            request.UserId,
+            timeEntry.From,
+            timeEntry.Until,
+            timeEntry.TotalSeconds,
+            user.Id.ToString(),
             user.UserName,
-            request.ProjectId,
+            project.Id.ToString(),
             project.Code,
-            request.ActivityType,
-            request.Comment,
-            false,
+            timeEntry.ActivityType,
+            timeEntry.Comment,
+            timeEntry.IsRemoved,
             timeEntry.Version);
 
         await _mediator.Send(updateReadCommand, cancellationToken);
