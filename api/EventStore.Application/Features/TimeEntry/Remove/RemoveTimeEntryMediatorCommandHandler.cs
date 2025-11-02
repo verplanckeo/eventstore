@@ -20,22 +20,22 @@ public class RemoveTimeEntryMediatorCommandHandler : IRequestHandler<RemoveTimeE
 
     public async Task<RemoveTimeEntryMediatorCommandResponse> Handle(RemoveTimeEntryMediatorCommand request, CancellationToken cancellationToken)
     {
-        var timeEntryId = await _repository.LoadAsync(request.TimeEntryId, cancellationToken);
+        var timeEntry = await _repository.LoadAsync(request.TimeEntryId, cancellationToken);
 
-        if (timeEntryId == null)
+        if (timeEntry == null)
             throw new System.Exception($"TimeEntry with id {request.TimeEntryId} not found.");
 
-        timeEntryId.RemoveTimeEntry();
+        timeEntry.RemoveTimeEntry();
 
-        await _repository.SaveAsync(timeEntryId, cancellationToken);
+        await _repository.SaveAsync(timeEntry, cancellationToken);
 
         // Mark as removed in read model
         var markAsRemovedCommand = MarkReadTimeEntryAsRemovedCommand.Create(
-            timeEntryId.ToString(),
-            timeEntryId.Version);
+            timeEntry.ToString(),
+            timeEntry.Version);
 
         await _mediator.Send(markAsRemovedCommand, cancellationToken);
 
-        return RemoveTimeEntryMediatorCommandResponse.CreateResponse(timeEntryId.ToString());
+        return RemoveTimeEntryMediatorCommandResponse.CreateResponse(timeEntry.ToString());
     }
 }
