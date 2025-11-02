@@ -49,9 +49,10 @@ public class UpdateTimeEntryMediatorCommandHandler : IRequestHandler<UpdateTimeE
 
         // Update read model
         var updateReadCommand = UpdateReadTimeEntryCommand.CreateCommand(
-            timeEntry.ToString(),
+            timeEntry.Id.ToString(),
             request.From,
             request.Until,
+            timeEntry.TotalSeconds,
             request.UserId,
             user.UserName,
             request.ProjectId,
@@ -63,6 +64,6 @@ public class UpdateTimeEntryMediatorCommandHandler : IRequestHandler<UpdateTimeE
 
         await _mediator.Send(updateReadCommand, cancellationToken);
 
-        return UpdateTimeEntryMediatorCommandResponse.CreateResponse(timeEntry.ToString());
+        return UpdateTimeEntryMediatorCommandResponse.CreateResponse(timeEntry.Id.ToString());
     }
 }

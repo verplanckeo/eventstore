@@ -10,6 +10,9 @@ public class TimeEntry : EventSourcedAggregateRoot<TimeEntryId>
         public override TimeEntryId Id { get; protected set; }
         public DateTimeOffset From { get; private set; }
         public DateTimeOffset Until { get; private set; }
+        
+        // returns non-negative whole seconds; callers can compute minutes/hours as needed
+        public int TotalSeconds => (int)(Until - From).TotalSeconds;
         public string UserId { get; private set; }
         public string ProjectId { get; private set; }
         public ActivityTypes ActivityType { get; private set; }

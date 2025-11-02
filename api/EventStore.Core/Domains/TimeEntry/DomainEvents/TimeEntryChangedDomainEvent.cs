@@ -13,7 +13,7 @@ public class TimeEntryChangedDomainEvent : DomainEvent
     public ActivityTypes ActivityType { get; private set; }
     public string Comment { get; private set; }
 
-    private TimeEntryChangedDomainEvent(
+    public TimeEntryChangedDomainEvent(
         string aggregateRootId,
         DateTimeOffset from,
         DateTimeOffset until,
