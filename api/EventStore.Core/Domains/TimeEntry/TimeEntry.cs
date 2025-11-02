@@ -8,8 +8,11 @@ namespace EventStore.Core.Domains.TimeEntry;
 public class TimeEntry : EventSourcedAggregateRoot<TimeEntryId>
     {
         public override TimeEntryId Id { get; protected set; }
-        public DateTime From { get; private set; }
-        public DateTime Until { get; private set; }
+        public DateTimeOffset From { get; private set; }
+        public DateTimeOffset Until { get; private set; }
+        
+        // returns non-negative whole seconds; callers can compute minutes/hours as needed
+        public int TotalSeconds => (int)(Until - From).TotalSeconds;
         public string UserId { get; private set; }
         public string ProjectId { get; private set; }
         public ActivityTypes ActivityType { get; private set; }
@@ -32,8 +35,8 @@ public class TimeEntry : EventSourcedAggregateRoot<TimeEntryId>
 
         public static TimeEntry RegisterTimeEntry(
             TimeEntryId id,
-            DateTime from,
-            DateTime until,
+            DateTimeOffset from,
+            DateTimeOffset until,
             string userId,
             string projectId,
             ActivityTypes activityType,
@@ -57,8 +60,9 @@ public class TimeEntry : EventSourcedAggregateRoot<TimeEntryId>
         }
 
         public void ChangeTimeEntry(
-            DateTime from,
-            DateTime until,
+            string aggregateRootId,
+            DateTimeOffset from,
+            DateTimeOffset until,
             string userId,
             string projectId,
             ActivityTypes activityType,
@@ -67,7 +71,7 @@ public class TimeEntry : EventSourcedAggregateRoot<TimeEntryId>
             ValidateTimeEntryInputs(from, until, userId, projectId, comment);
 
             var @event = TimeEntryChangedDomainEvent.CreateEvent(
-                Id.ToString(),
+                aggregateRootId,
                 from,
                 until,
                 userId,
@@ -78,8 +82,8 @@ public class TimeEntry : EventSourcedAggregateRoot<TimeEntryId>
             Apply(@event);
         }
         private static void ValidateTimeEntryInputs(
-            DateTime from,
-            DateTime until,
+            DateTimeOffset from,
+            DateTimeOffset until,
             string userId,
             string projectId,
             string comment)
@@ -105,7 +109,7 @@ public class TimeEntry : EventSourcedAggregateRoot<TimeEntryId>
 
         public void On(TimeEntryRegisteredDomainEvent @event)
         {
-            Id = new TimeEntryId();
+            Id = new TimeEntryId(@event.TimeEntryId);
             From = @event.From;
             Until = @event.Until;
             UserId = @event.UserId;

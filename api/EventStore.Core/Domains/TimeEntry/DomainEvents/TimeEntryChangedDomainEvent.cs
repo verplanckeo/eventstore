@@ -5,22 +5,24 @@ namespace EventStore.Core.Domains.TimeEntry.DomainEvents;
 
 public class TimeEntryChangedDomainEvent : DomainEvent
 {
-    public DateTime From { get; private set; }
-    public DateTime Until { get; private set; }
+    public string TimeEntryId { get; set; }
+    public DateTimeOffset From { get; private set; }
+    public DateTimeOffset Until { get; private set; }
     public string UserId { get; private set; }
     public string ProjectId { get; private set; }
     public ActivityTypes ActivityType { get; private set; }
     public string Comment { get; private set; }
 
-    private TimeEntryChangedDomainEvent(
+    public TimeEntryChangedDomainEvent(
         string aggregateRootId,
-        DateTime from,
-        DateTime until,
+        DateTimeOffset from,
+        DateTimeOffset until,
         string userId,
         string projectId,
         ActivityTypes activityType,
         string comment) : base()
     {
+        TimeEntryId = aggregateRootId;
         From = from;
         Until = until;
         UserId = userId;
@@ -31,8 +33,8 @@ public class TimeEntryChangedDomainEvent : DomainEvent
 
     public static TimeEntryChangedDomainEvent CreateEvent(
         string aggregateRootId,
-        DateTime from,
-        DateTime until,
+        DateTimeOffset from,
+        DateTimeOffset until,
         string userId,
         string projectId,
         ActivityTypes activityType,

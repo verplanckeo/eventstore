@@ -7,8 +7,9 @@ namespace EventStore.Application.Features.TimeEntry.UpdateReadTimeEntry;
 public class UpdateReadTimeEntryCommand : IRequest
 {
     public string AggregateRootId { get; set; }
-    public DateTime From { get; set; }
-    public DateTime Until { get; set; }
+    public DateTimeOffset From { get; set; }
+    public DateTimeOffset Until { get; set; }
+    public int TotalSeconds { get; set; }
     public string UserId { get; set; }
     public string UserName { get; set; }
     public string ProjectId { get; set; }
@@ -20,11 +21,12 @@ public class UpdateReadTimeEntryCommand : IRequest
     
     public int Version { get; set; }
     
-    public UpdateReadTimeEntryCommand(string aggregateRootId, DateTime from, DateTime until, string userId, string userName, string projectId, string projectCode, ActivityTypes activityType, string comment, bool isRemoved, int version)
+    public UpdateReadTimeEntryCommand(string aggregateRootId, DateTimeOffset from, DateTimeOffset until, int totalSeconds, string userId, string userName, string projectId, string projectCode, ActivityTypes activityType, string comment, bool isRemoved, int version)
     {
         AggregateRootId = aggregateRootId;
         From = from;
         Until = until;
+        TotalSeconds = totalSeconds;
         UserId = userId;
         UserName = userName;
         ProjectId = projectId;
@@ -35,8 +37,8 @@ public class UpdateReadTimeEntryCommand : IRequest
         Version = version;
     }
     
-    public static UpdateReadTimeEntryCommand CreateCommand(string aggregateRootId, DateTime from, DateTime until, string userId, string userName, string projectId, string projectCode, ActivityTypes activityType, string comment, bool isRemoved, int version)
+    public static UpdateReadTimeEntryCommand CreateCommand(string aggregateRootId, DateTimeOffset from, DateTimeOffset until, int totalSeconds, string userId, string userName, string projectId, string projectCode, ActivityTypes activityType, string comment, bool isRemoved, int version)
     {
-        return new UpdateReadTimeEntryCommand(aggregateRootId, from, until, userId, userName, projectId, projectCode, activityType, comment, isRemoved, version);
+        return new UpdateReadTimeEntryCommand(aggregateRootId, from, until, totalSeconds, userId, userName, projectId, projectCode, activityType, comment, isRemoved, version);
     }
 }

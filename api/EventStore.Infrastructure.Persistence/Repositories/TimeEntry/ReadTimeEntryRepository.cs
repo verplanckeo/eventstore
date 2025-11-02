@@ -33,10 +33,10 @@ public class ReadTimeEntryRepository : IReadTimeEntryRepository
                     AggregateRootId = timeEntry.AggregateRootId,
                     From = timeEntry.From,
                     Until = timeEntry.Until,
-                    UserId = timeEntry.UserId,
-                    UserName = timeEntry.UserName,
-                    ProjectId = timeEntry.ProjectId,
-                    ProjectCode = timeEntry.ProjectCode,
+                    UserId = timeEntry.User.Id,
+                    UserName = timeEntry.User.UserName,
+                    ProjectId = timeEntry.Project.Id,
+                    ProjectCode = timeEntry.Project.Code,
                     ActivityType = timeEntry.ActivityType,
                     Comment = timeEntry.Comment,
                     IsRemoved = timeEntry.IsRemoved,
@@ -52,10 +52,10 @@ public class ReadTimeEntryRepository : IReadTimeEntryRepository
                 {
                     existingTimeEntry.From = timeEntry.From;
                     existingTimeEntry.Until = timeEntry.Until;
-                    existingTimeEntry.UserId = timeEntry.UserId;
-                    existingTimeEntry.UserName = timeEntry.UserName;
-                    existingTimeEntry.ProjectId = timeEntry.ProjectId;
-                    existingTimeEntry.ProjectCode = timeEntry.ProjectCode;
+                    existingTimeEntry.UserId = timeEntry.User.Id;
+                    existingTimeEntry.UserName = timeEntry.User.UserName;
+                    existingTimeEntry.ProjectId = timeEntry.Project.Id;
+                    existingTimeEntry.ProjectCode = timeEntry.Project.Code;
                     existingTimeEntry.ActivityType = timeEntry.ActivityType;
                     existingTimeEntry.Comment = timeEntry.Comment;
                     existingTimeEntry.IsRemoved = timeEntry.IsRemoved;

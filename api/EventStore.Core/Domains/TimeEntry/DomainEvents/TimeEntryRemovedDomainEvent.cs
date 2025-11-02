@@ -4,7 +4,7 @@ namespace EventStore.Core.Domains.TimeEntry.DomainEvents;
 
 public class TimeEntryRemovedDomainEvent : DomainEvent
 {
-    private TimeEntryRemovedDomainEvent() : base()
+    public TimeEntryRemovedDomainEvent() : base()
     {
     }
 
