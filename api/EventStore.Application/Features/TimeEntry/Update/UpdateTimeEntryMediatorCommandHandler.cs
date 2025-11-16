@@ -40,8 +40,8 @@ public class UpdateTimeEntryMediatorCommandHandler : IRequestHandler<UpdateTimeE
             timeEntry.Id.ToString(),
             request.From,
             request.Until,
-            request.UserId,
-            request.ProjectId,
+            user.Id.ToString(),
+            project.Id.ToString(),
             request.ActivityType,
             request.Comment);
 

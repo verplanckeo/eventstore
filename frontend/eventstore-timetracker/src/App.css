@@ -5,12 +5,13 @@
   padding: 0;
 }
 
-/* Color Palette - Professional Red Theme */
+/* Color Palette - Professional Blue/Green Theme */
 :root {
-  --primary-red: #C62828;
-  --primary-red-dark: #8E0000;
-  --primary-red-light: #FF5F52;
-  --accent-red: #D32F2F;
+  --primary-blue: #0077B6;
+  --primary-blue-dark: #023E8A;
+  --primary-blue-light: #00B4D8;
+  --accent-teal: #00A896;
+  --accent-green: #06D6A0;
   --background-dark: #1A1A1A;
   --background-medium: #2D2D2D;
   --background-light: #3A3A3A;
@@ -18,8 +19,8 @@
   --text-secondary: #B0B0B0;
   --text-muted: #888888;
   --border-color: #404040;
-  --shadow-color: rgba(198, 40, 40, 0.3);
-  --hover-overlay: rgba(198, 40, 40, 0.1);
+  --shadow-color: rgba(0, 119, 182, 0.3);
+  --hover-overlay: rgba(0, 119, 182, 0.1);
 }
 
 /* Body Styling */

@@ -39,7 +39,7 @@ const DashboardView: React.FC = () => {
           }}
         >
           <Box>
-            <Typography variant="h4" component="h1" gutterBottom>
+            <Typography variant="h4" component="h2" gutterBottom>
               Welcome back, {user?.userName}!
             </Typography>
             <Typography variant="body1" color="text.secondary">
