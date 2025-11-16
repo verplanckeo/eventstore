@@ -1,5 +1,5 @@
 // frontend/eventstore-timetracker/src/components/navbar/NavigationBar.tsx
-import { Assessment, Login as LoginIcon, PersonAdd, AccessTime, Work } from "@mui/icons-material";
+import { Assessment, Dashboard, Login as LoginIcon, PersonAdd, AccessTime, Work } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -24,6 +24,7 @@ export const NavigationBar: React.FC = () => {
 	];
 
 	const authenticatedNavItems: NavItem[] = [
+		{ label: "Dashboard", path: "/dashboard", icon: <Dashboard /> },
 		{ label: "Time Entries", path: "/time-entries", icon: <AccessTime /> },
 		{ label: "Projects", path: "/projects", icon: <Work /> },
 		{ label: "Analytics", path: "/analytics", icon: <Assessment /> },

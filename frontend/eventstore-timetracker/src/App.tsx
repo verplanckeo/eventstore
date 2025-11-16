@@ -9,6 +9,7 @@ import { Dashboard } from './pages/dashboard';
 import { GuestGuard } from './auth/guard/guest-guard';
 import { AuthGuard } from './auth/guard/auth-guard';
 import { Projects } from './pages/project';
+import { TimeEntries } from './pages/timeentry';
 
 function App() {
 
@@ -54,6 +55,17 @@ function App() {
 						</AuthGuard>
 					}
 					/>
+
+				{/* Time Entries */}
+				<Route
+					path="/time-entries"
+					element={
+						<AuthGuard>
+							<TimeEntries />
+						</AuthGuard>
+					}
+					/>
+					
 			{/* <Route path="/user-overview" element={<Overview />} /> */}
 
 		</Routes>
