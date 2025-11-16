@@ -10,6 +10,7 @@ import { GuestGuard } from './auth/guard/guest-guard';
 import { AuthGuard } from './auth/guard/auth-guard';
 import { Projects } from './pages/project';
 import { TimeEntries } from './pages/timeentry';
+import { Analytics } from './pages/analytics';
 
 function App() {
 
@@ -65,6 +66,16 @@ function App() {
 						</AuthGuard>
 					}
 					/>
+
+			{/* Analytics */}
+			<Route
+				path="/analytics"
+				element={
+					<AuthGuard>
+						<Analytics />
+					</AuthGuard>
+				}
+				/>
 					
 			{/* <Route path="/user-overview" element={<Overview />} /> */}
 
